@@ -1,7 +1,6 @@
-# community
-# 这是一个全新的基于uniapp框架的社区项目
-# 相信我，他将变得非常完整
-# 敬请期待。。。
+# FunnyApp
+# 这绝不是一个仅有趣那么简单的app
+##能运行于各种平台（App,ios，web，小程序）
 
 ## Project setup
 ```

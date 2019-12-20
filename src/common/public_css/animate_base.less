@@ -1,0 +1,49 @@
+/*渐入*/
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(50px);
+    transform: translateY(50px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+/*圆点辐射*/
+@keyframes ripple {
+  0% {
+    transform: scale(1,1);
+    opacity: 0.9;
+  }
+
+  20% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2,2);
+  }
+}
+
+/*动画延时*/
+.animated.delay-600ms {
+  -webkit-animation-delay: 600ms;
+  animation-delay: 600ms;
+}
+.animated.delay-400ms {
+  -webkit-animation-delay: 400ms;
+  animation-delay: 400ms;
+}
+.animated.delay-200ms {
+  -webkit-animation-delay: 200ms;
+  animation-delay: 200ms;
+}

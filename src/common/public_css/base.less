@@ -1,0 +1,101 @@
+@charset "UTF-8";
+/*定义全局计算移动端像素*/
+@width_max:7.5;
+.value_el(@item_el:'width',@width_de:750%){
+        @{item_el}:@width_de/@width_max;
+}
+
+/*定义margin*/
+.value_ml(@width_de:750%){
+    margin-left:@width_de/@width_max;
+}
+.value_mr(@width_de:750%){
+    margin-right:@width_de/@width_max;
+}
+.value_mt(@width_de:750%){
+    margin-top:@width_de/@width_max;
+}
+.value_mb(@width_de:750%){
+    margin-bottom:@width_de/@width_max;
+}
+
+/*定义padding*/
+.value_pl(@width_de:750%){
+    padding-left:@width_de/@width_max;
+}
+.value_pr(@width_de:750%){
+    padding-right:@width_de/@width_max;
+}
+.value_pt(@width_de:750%){
+    padding-top:@width_de/@width_max;
+}
+.value_pb(@width_de:750%){
+    padding-bottom:@width_de/@width_max;
+}
+
+/*定义line-height*/
+.value_lh(@width_de:750%){
+    line-height:@width_de/@width_max;
+}
+
+/*定义font-size*/
+.value_fs(@width_de:750%){
+    font-size:@width_de/@width_max;
+}
+
+/*定义顔色*/
+@bg-white:#fff;
+@bg-dark:#262640;
+@bg-pink:#FB7299;
+@bg-blue:#00A1D6;
+
+/* 主题颜色 */
+@color-theme: #43C6AC;
+/*
+ #4568DC 蓝色
+ #B06AB3 紫色
+ #43C6AC 绿色
+ #ffc3a0 黄色
+ #FFAFBD 粉色
+ */
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// p,a{
+//     color: #333333;
+//     .value_fs(14vw)
+// }
+
+// h1,h2,h3,h4{
+//     .value_fs(16vw)
+// }
+
+a {
+    text-decoration: none;
+    display: block;
+}
+
+li {list-style: none;}
+
+img {
+    border: 0;
+    vertical-align: bottom;
+    width: 100%;
+}
+
+/*清除浮动*/
+.clearfix::after,
+.clearfix::before {
+    content: '';
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+    clear: both;
+}
