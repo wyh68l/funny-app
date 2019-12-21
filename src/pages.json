@@ -17,6 +17,13 @@
       "path": "pages/tools/enjoy",
       "style": {
         "navigationBarTitleText": "彩虹屁生成",
+        "navigationBarBackgroundColor": "#1873A2"
+      }
+    },
+    {
+      "path": "pages/tools/fuck",
+      "style": {
+        "navigationBarTitleText": "口吐芬芳",
         "navigationBarBackgroundColor": "#f2709c"
       }
     }

@@ -33,10 +33,12 @@
     "@dcloudio/uni-mp-toutiao": "^2.0.0-24220191115008",
     "@dcloudio/uni-mp-weixin": "^2.0.0-24220191115008",
     "@dcloudio/uni-stat": "^2.0.0-24220191115008",
+    "axios": "^0.19.0",
     "better-scroll": "^1.15.2",
     "flyio": "^0.6.2",
     "regenerator-runtime": "^0.12.1",
     "vue": "^2.6.10",
+    "vue-clipboard2": "^0.3.1",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

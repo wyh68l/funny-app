@@ -3,30 +3,24 @@
   <view class='content' :style="{'background':`url('${bgImg}')`,'backgroundSize':'cover'}">
     <!--#endif-->
     <!-- #ifdef WEIXIN -->
-    <view class='content' style='background:url('{{bgImg}}')'>
+    <view class='content' style="background:url('{{bgImg}}')">
       <!--#endif-->
-      <view class="result animated fadeInUp">
-        <textarea v-model="result"
-                  disabled class="text"
-                  :class="{'animated fadeIn':isShow}"
-        >
-        </textarea>
-        <text class="copy" @tap="copy" v-show="result !== '' && result">复制</text>
-      </view>
-      <view class="search animated fadeInUp" @tap="getResult">
-        <button class="button">生成</button>
-      </view>
+    <view class="result animated fadeInUp">
+      <textarea v-model="result" disabled class="text" :class="{'animated fadeIn':isShow}"></textarea>
     </view>
+    <view class="search animated fadeInUp" @tap="getResult">
+      <button class="button">生成</button>
+    </view>
+  </view>
 </template>
 
 <script>
-  import {fetch} from 'serves/serves'
+    import {fetch} from 'serves/serves'
     export default {
-        name: "enjoy",
+        name: "fuck",
         data(){
             return {
                 result:'',
-                tips:'',
                 isShow:false,
                 imgList:[
                     'https://ae01.alicdn.com/kf/U529d5c5750714689a12b2354a6f6cd9ag.jpg',
@@ -45,88 +39,32 @@
             }
         },
         created(){
-            /*uniapp获取dom元素（只能获取部分属性）*/
-            // const query = uni.createSelectorQuery().in(this);
-            // query.select('.content').boundingClientRect(data => {
-            //     console.log(data);
-            // }).exec();
-
-
-            /*wx获取dom元素（只能获取部分属性）*/
-            // let query = wx.createSelectorQuery();
-            // let el = query.select('.content')
-            // console.log(el);
-
-            /*js获取dom元素*/
-            //let el = document.getElementsByClassName('content');
-            // el.style.backgroundImg = 'url(https://ae01.alicdn.com/kf/U529d5c5750714689a12b2354a6f6cd9ag.jpg) no-repeat';
-            // el.style.backgroundSize = 'cover'
-
             this.randomImg();
         },
         methods:{
-            getResult(){
-                fetch('https://chp.shadiao.app/api.php','get').then(res=>{
-                    console.log(res);
-                    if(res.errMsg === 'request:ok'){
-                      this.result = res.data;
-                        this.isShow = true;
-                        setTimeout(()=>{
-                            this.isShow = false
-                        },250)
-                    }else{
-                        wx.showToast({
-                            title: '诶呀,好疼',
-                            icon: 'none',
-                            duration: 2000
-                        })
-                    }
-                })
-            },
             randomImg(){
                 let index = parseInt(Math.random()*10);
                 console.log(index);
                 this.bgImg = this.imgList[index];
             },
-            copy(){
-                //#ifdef MP-WEIXIN
-                let that = this;
-                /*wx.setClipboardData设置剪贴板*/
-                wx.setClipboardData({
-                    data: this.result,
-                    success (res) {
-                    },
-                    fail(res) {
-                        that.tips = '诶呀,再试下'
+            getResult(){
+                fetch('https://nmsl.shadiao.app/api.php?level=min&lang=zh_cn','get').then(res=>{
+                    console.log(res);
+                    if(res.errMsg === 'request:ok'){
+                        this.result = res.data;
+                        this.isShow = true;
+                        setTimeout(()=>{
+                            this.isShow = false
+                        },250)
+                    }else{
+                        console.log('sas');
                         wx.showToast({
-                            title: that.tips,
-                            icon: 'none',
+                            title: '诶呀,好疼',
+                            icon: 'fail',
                             duration: 2000
                         })
                     }
                 })
-                //#endif
-
-                //#ifdef H5 || APP-PLUS
-                /*使用插件复制*/
-                    this.$copyText(this.result).then((e)=>{
-                        this.tips = '复制成功咯'
-                        wx.showToast({
-                            title: this.tips,
-                            icon: 'success',
-                            duration: 2000
-                        })
-                        console.log(e)
-                    }, (e)=> {
-                        this.tips = '诶呀,再试下'
-                        wx.showToast({
-                            title: this.tips,
-                            icon: 'none',
-                            duration: 2000
-                        })
-                        console.log(e)
-                    })
-                //#endif
             }
         }
     }
@@ -135,16 +73,14 @@
   page {
     /* linear-gradient(to right, rgb(131, 164, 212), rgb(182, 251, 255)); 渐变蓝*/
     /*rgb(242, 112, 156), rgb(255, 148, 114)渐变红*/
-    /*background: linear-gradient(to bottom, rgb(242, 112, 156), rgb(255, 148, 114));*/
-
+    /*background: url('https://ae01.alicdn.com/kf/Ud7c5519c2beb4302a5e3208fccf17a943.jpg') no-repeat;*/
+    /*background-size: cover;*/
     height: 100%;
   }
 </style>
 <style scoped lang="less">
   .content{
     height: 100%;
-    /*background: url('https://ae01.alicdn.com/kf/U529d5c5750714689a12b2354a6f6cd9ag.jpg') no-repeat;*/
-    /*background-size: cover;*/
     padding-top: 60upx;
     box-sizing: border-box;
 
@@ -154,7 +90,6 @@
       margin: 0 auto;
       border: 1upx solid #fff;
       border-radius: 10upx;
-      text-align: right;
 
       .text{
         width: 80%;
@@ -162,15 +97,8 @@
         /*border: 1px solid #fff;*/
         color: #fff;
         margin: 0 auto;
-        margin-top: 90upx;
+        margin-top: 120upx;
         font-size: 32upx;
-        text-align: left;
-      }
-
-      .copy{
-        color: #fff;
-        font-size: 32upx;
-        margin: 40upx;
       }
     }
 

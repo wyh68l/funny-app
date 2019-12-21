@@ -21,6 +21,10 @@ switch(uni.getSystemInfoSync().platform){
 
 /* 使用注释法来把代码分开在app，h5,小程序端 */
 
+/*引入剪切板插件*/
+import VueClipboard from 'vue-clipboard2'
+
+Vue.use(VueClipboard);
 
 const app = new Vue({
   ...App

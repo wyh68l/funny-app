@@ -46,7 +46,7 @@
                         title: '口吐莲花',
                         tips: '口绽莲花，吐露芬芳',
                         bgc: 'https://ae01.alicdn.com/kf/U01fa7358b55f4830866f417e34b41b28l.jpg',
-                        src: '',
+                        src: 'fuck',
                         goTo: '进入',
                         delay:'delay-200ms'
                     },
@@ -76,12 +76,13 @@
 </script>
 <style>
   page{
-    background: linear-gradient(to bottom, rgb(35, 37, 38), rgb(65, 67, 69));
+    /*background: linear-gradient(to bottom, rgb(35, 37, 38), rgb(65, 67, 69));*/
   }
 </style>
 <style lang="less" scoped>
   .content {
     padding: 20px 0;
+    background: linear-gradient(to bottom, rgb(35, 37, 38), rgb(65, 67, 69));
 
     .toolsList {
       .item {
