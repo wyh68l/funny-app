@@ -38,15 +38,15 @@
                     title: '欢喜如你',
                     tips: '斯人如彩虹，遇上方知有',
                     bgc: 'https://ae01.alicdn.com/kf/Ud82d3b1070a140f4a2d8518e55b0294aA.jpg',
-                    src: 'enjoy',
+                    src: 'enjoy?type=default',
                     goTo: '进入',
                     delay:''
                 },
                     {
-                        title: '口吐莲花',
-                        tips: '口绽莲花，吐露芬芳',
+                        title: '猜你所享',
+                        tips: '猜你所想，分享日常',
                         bgc: 'https://ae01.alicdn.com/kf/U01fa7358b55f4830866f417e34b41b28l.jpg',
-                        src: 'fuck',
+                        src: 'enjoy?type=friendly',
                         goTo: '进入',
                         delay:'delay-200ms'
                     },
@@ -54,7 +54,7 @@
                         title: '今夕何年',
                         tips: '故乡今夜思千里，霜鬓明朝又一年',
                         bgc: 'https://ae01.alicdn.com/kf/Ucab0d091384a4ac6a1c90467db03c002Y.jpg',
-                        src: '',
+                        src: 'newYear',
                         goTo: '进入',
                         delay:'delay-400ms'
                     },
