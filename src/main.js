@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+//import vConsole from 'common/js/vconsole'//引入console
 
 Vue.config.productionTip = false
 

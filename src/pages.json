@@ -24,9 +24,16 @@
       "path": "pages/tools/newYear",
       "style": {
         "navigationBarTitleText": "新年祝福语",
-        "navigationBarBackgroundColor": "#232326"
+        "navigationBarBackgroundColor": "#83a4d4"
       }
-    }
+    },
+      {
+        "path": "pages/tools/more",
+        "style": {
+          "navigationBarTitleText": "关于作者",
+          "navigationBarBackgroundColor": "#83a4d4"
+        }
+      }
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

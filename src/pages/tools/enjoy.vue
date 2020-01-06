@@ -1,22 +1,5 @@
 <template>
-<!-- #ifdef H5 || APP-PLUS-->
-  <view class='content' :style="{'background':`url('${bgImg}')`,'backgroundSize':'cover'}">
-    <view class="result animated fadeInUp">
-        <textarea v-model="result"
-                  disabled class="text"
-                  :class="{'animated fadeIn':isShow}"
-        >
-        </textarea>
-      <text class="copy" @tap="copy" v-show="result !== '' && result">复制</text>
-    </view>
-    <view class="search animated fadeInUp" @tap="getResult">
-      <button class="button">生成</button>
-    </view>
-  </view>
-<!-- #endif-->
-
-<!-- #ifdef MP-WEIXIN-->
-    <view class='content' style="background:url('{{bgImg}}');background-size: cover" >
+  <view class='content' :style="{'background':'url('+bgImg+')','backgroundSize':'cover'}">
       <view class="result animated fadeInUp">
         <textarea v-model="result"
                   disabled class="text"
@@ -25,12 +8,15 @@
         </textarea>
         <text class="copy" @tap="copy" v-show="result !== '' && result">复制</text>
       </view>
+      <view class="tips animated fadeInUp">
+          <text>Tips:如果点击生成无效果,请尝试以下步骤</text>
+          <text>请点击右上角按钮->点击‘开发调试’-></text>
+          <text>点击‘打开调试’->重启小程序即可</text>
+      </view>
       <view class="search animated fadeInUp" @tap="getResult">
         <button class="button">生成</button>
       </view>
     </view>
-
-    <!--#endif-->
 </template>
 
 <script>
@@ -183,7 +169,7 @@
             },
             randomImg(){
                 let that = this;
-                let index = parseInt(Math.random()*10)+1;
+                let index = parseInt(Math.random()*14);
                 console.log(index);
                 this.bgImg = this.imgList[index];
                 // console.log(wx);
@@ -295,10 +281,23 @@
       }
     }
 
+      .tips{
+          margin-top: 20px;
+          text-align: center;
+          position: relative;
+          z-index: 2;
+
+          text{
+              display: block;
+              color: #fff;
+              font-size: 28upx;
+          }
+      }
+
     .search{
       margin: 0 auto;
       position: relative;
-      top: 30%;
+      top: 25%;
       width: 100upx;
       height: 100upx;
       line-height: 100upx;

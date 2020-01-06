@@ -62,7 +62,7 @@
                         title: '敬请期待',
                         tips: '不如给程序猿小哥哥资助点硬币',
                         bgc: 'https://ae01.alicdn.com/kf/Ud2a06b08b1cb4326b1476fb76c45a6d0D.jpg',
-                        src: '',
+                        src: 'more',
                         goTo: '可怜',
                         delay:'delay-600ms'
                     }

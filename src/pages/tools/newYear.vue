@@ -1,45 +1,38 @@
 <template>
-  <!-- #ifdef H5 || APP-PLUS-->
-  <view class='content' :style="{'background':`url('${bgImg}')`,'backgroundSize':'cover'}">
-    <view class="box">
+  <view class='content' :style="{'background':'url('+bgImg+')','backgroundSize':'cover'}">
+    <view class="selectPage animated fadeInUp">
+      <view @tap="page = page<=1?1:page-1">上一页</view>
+      <view><input type="number" v-model="page"></view>
+      <view @tap="page++">下一页</view>
+    </view>
+    <view class="box animated fadeInUp">
       <view class="title">
-        <text>撒撒撒撒撒上</text>
+        <text>{{newYearPoet[poetIndex].mes}}</text>
+        <text class="author">{{newYearPoet[poetIndex].author}}</text>
       </view>
       <view class="list">
-          <view class="item" v-for="(item,index) in newYearsList" :key="item.id">
+          <view class="item" v-for="(item,index) in changePage" :key="item.id">
             <text class="mes">{{item.mes}}</text>
-<!--            <text class="copy">复制</text>-->
+            <text class="copy" @tap="copy(item.mes,item.id)">复制</text>
+
+            <!--#ifdef MP-WEIXIN-->
+            <button class="share" open-type="share">转发</button>
+            <!--#endif-->
           </view>
       </view>
     </view>
   </view>
-  <!-- #endif-->
-
-  <!-- #ifdef MP-WEIXIN-->
-  <view class='content' style="background:url('{{bgImg}}');background-size: cover" >
-    <view class="box">
-      <view class="title">
-        <text>撒撒撒撒撒上</text>
-      </view>
-      <view class="list">
-        <view class="item" v-for="(item,index) in newYearsList" :key="item.id">
-          <text class="mes">{{item.mes}}</text>
-          <!--            <text class="copy">复制</text>-->
-        </view>
-      </view>
-    </view>
-  </view>
-  <!-- #endif-->
 </template>
 
 <script>
     import {fetch} from 'serves/serves'
     import {getYearsList} from "../../static/data/newYears";
     export default {
-        name: "fuck",
+        name: "newYear",
         data(){
             return {
                 result:'',
+                tips:'',
                 isShow:false,
                 imgList:[
                     'https://ae01.alicdn.com/kf/U529d5c5750714689a12b2354a6f6cd9ag.jpg',
@@ -115,20 +108,36 @@
                         color:'#2E4F64'
                     }
                 ],
+                page:1,
                 bgImg:'',
-                newYearsList:[]
+                newYearsList:[],
+                newYearsList2:[],
+                newYearPoet:[],
+                poetIndex:0
             }
         },
         created(){
-            this.randomImg();
-            let newYears = new getYearsList();
-            this.newYearsList = newYears.newYearsList;
-            //console.log(newYears.newYearsList);
+          this.init();
+        },
+        computed:{
+            changePage(){
+                this.newYearsList2 = this.newYearsList.slice(this.page*10-10,this.page*10);
+                return this.newYearsList2;
+            }
         },
         methods:{
+            init(){
+                //this.randomImg();
+                let newYears = new getYearsList();
+                this.newYearsList = newYears.newYearsList;
+                this.newYearPoet = newYears.newYearPoet;
+                this.poetIndex = parseInt(Math.random()*19);
+                // console.log(this.poetIndex);
+                // console.log(newYears.newYearPoet);
+            },
             randomImg(){
                 let that = this;
-                let index = parseInt(Math.random()*10);
+                let index = parseInt(Math.random()*14);
                 console.log(index);
                 this.bgImg = this.imgList[index];
                 // console.log(wx);
@@ -159,6 +168,65 @@
                         })
                     }
                 })
+            },
+            share(){
+                wx.updateShareMenu({
+                    withShareTicket: true,
+                    success () {
+                        console.log('sasa');
+                    }
+                })
+            },
+            copy(mes,id){
+                let index = 0;
+                if(id < 9){
+                    index = 2
+                }else if(id < 99){
+                    index = 3
+                }else{
+                    index = 4
+                }
+                // console.log(index+'--'+id);
+                let msg = mes.substr(index);
+
+                //#ifdef MP-WEIXIN
+                let that = this;
+                /*wx.setClipboardData设置剪贴板*/
+                wx.setClipboardData({
+                    data: msg,
+                    success (res) {
+                    },
+                    fail(res) {
+                        that.tips = '诶呀,再试下'
+                        wx.showToast({
+                            title: that.tips,
+                            icon: 'none',
+                            duration: 2000
+                        })
+                    }
+                })
+                //#endif
+
+                //#ifdef H5 || APP-PLUS
+                /*使用插件复制*/
+                this.$copyText(msg).then((e)=>{
+                    this.tips = '复制成功咯'
+                    wx.showToast({
+                        title: this.tips,
+                        icon: 'success',
+                        duration: 2000
+                    })
+                    console.log(e)
+                }, (e)=> {
+                    this.tips = '诶呀,再试下'
+                    wx.showToast({
+                        title: this.tips,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                    console.log(e)
+                })
+                //#endif
             }
         }
     }
@@ -167,7 +235,7 @@
   page {
     /* linear-gradient(to right, rgb(131, 164, 212), rgb(182, 251, 255)); 渐变蓝*/
     /*rgb(242, 112, 156), rgb(255, 148, 114)渐变红*/
-    /*background: url('https://ae01.alicdn.com/kf/Ud7c5519c2beb4302a5e3208fccf17a943.jpg') no-repeat;*/
+    background: linear-gradient(to bottom, rgb(131, 164, 212), rgb(182, 191, 195));
     /*background-size: cover;*/
     height: 100%;
   }
@@ -175,29 +243,47 @@
 <style scoped lang="less">
   .content{
     height: 100%;
-    padding-top: 60upx;
+    padding-top: 20px;
     box-sizing: border-box;
+
+    .selectPage{
+      display: flex;
+      justify-content: space-around;
+        padding-bottom: 20px;
+
+      view{
+        color: #fff;
+      }
+      input{
+        text-align: center;
+          border-bottom: 1px solid #fff;
+      }
+    }
 
     .box{
       width: 92%;
-      height: 92%;
+      height: 93%;
       margin: 0 auto;
       overflow: scroll;
 
       .title{
-        width: 100%;
         height: 120px;
         position: relative;
         border-radius: 12upx;
         padding: 20px 30upx;
-        overflow: scroll;
+        overflow: hidden;
         margin-bottom: 20px;
 
         text{
-          position: absolute;
+          position: relative;
+          display: block;
           color: #fff;
-          font-size: 38upx;
+          font-size: 36upx;
           z-index: 2;
+        }
+        .author{
+          text-align: right;
+          margin-top: 30px;
         }
 
         &:after{
@@ -217,25 +303,47 @@
       .list{
 
         .item{
-          width: 100%;
-          height: 150px;
+          height: 180px;
           position: relative;
           border-radius: 12upx;
           padding: 20px 30upx;
           overflow: scroll;
           margin-bottom: 20px;
+          text-align: right;
 
           .mes{
-            position: absolute;
+            position: relative;
+            text-align: left;
+            display: block;
             color: #fff;
-            font-size: 38upx;
+            line-height: 45upx;
+            font-size: 35upx;
             z-index: 2;
           }
           .copy{
             position: absolute;
+            right: 30px;
+            bottom: 10px;
             color: #fff;
-            font-size: 38upx;
+            font-size: 34upx;
             z-index: 2;
+          }
+          .share{
+            position: absolute;
+            right: 100px;
+            bottom: 0;
+            color: #fff;
+            font-size: 34upx;
+            z-index: 2;
+            padding: 0;
+            border: none;
+            background:initial;
+            outline: none;
+            text-align: center;
+
+            &:after{
+              border: none;
+            }
           }
 
           &:after{
