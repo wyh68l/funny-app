@@ -51,6 +51,14 @@
                         delay:'delay-200ms'
                     },
                     {
+                        title: '心灵鸡汤',
+                        tips: '你在鸡汤里下毒。。',
+                        bgc: 'https://ae01.alicdn.com/kf/U919ffdca820c408ca73d035fa313ac4fL.jpg',
+                        src: 'enjoy?type=sad',
+                        goTo: '进入',
+                        delay:'delay-200ms'
+                    },
+                    {
                         title: '今夕何年',
                         tips: '故乡今夜思千里，霜鬓明朝又一年',
                         bgc: 'https://ae01.alicdn.com/kf/Ucab0d091384a4ac6a1c90467db03c002Y.jpg',

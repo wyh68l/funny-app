@@ -8,11 +8,12 @@
         </textarea>
         <text class="copy" @tap="copy" v-show="result !== '' && result">复制</text>
       </view>
-      <view class="tips animated fadeInUp">
-          <text>Tips:如果点击生成无效果,请尝试以下步骤</text>
-          <text>请点击右上角按钮->点击‘开发调试’-></text>
-          <text>点击‘打开调试’->重启小程序即可</text>
-      </view>
+      <!--<view class="tips animated fadeInUp">-->
+          <!--<text>Tips:如果点击生成无效果,请尝试以下步骤</text>-->
+          <!--<text>请点击右上角按钮->点击‘开发调试’-></text>-->
+          <!--<text>点击‘打开调试’->重启小程序即可</text>-->
+          <!--<text>（仅体验版可用）</text>-->
+      <!--</view>-->
       <view class="search animated fadeInUp" @tap="getResult">
         <button class="button">生成</button>
       </view>
@@ -21,22 +22,31 @@
 
 <script>
   import {fetch} from 'serves/serves'
+  import {getEnjoyList} from "../../static/data/enjoy";
+  import {getFriendlyList} from "../../static/data/friendly";
+  import {getSadList} from "../../static/data/sad";
     export default {
         name: "enjoy",
         data(){
             return {
                 result:'',
                 tips:'',
+                type:'',
                 api:[
                     {
                         type:'friendly',
-                        api:'https://pyq.shadiao.app/api.php',
+                        api:'https://pyq.shadiao.app/api.php?from=wyh68l',
                         title:'朋友圈文案'
                     },
                     {
                         type:'default',
-                        api:'https://chp.shadiao.app/api.php',
+                        api:'https://chp.shadiao.app/api.php?from=wyh68l',
                         title:'彩虹屁'
+                    },
+                    {
+                        type:'sad',
+                        api:'https://du.shadiao.app/api.php?from=wyh68l',
+                        title:'毒鸡汤'
                     },
                 ],
                 apiIndex:0,
@@ -115,7 +125,10 @@
                         color:'#2E4F64'
                     }
                 ],
-                bgImg:''
+                bgImg:'',
+                conTextObj:null,
+                length:100,
+                conTextList:[]
             }
         },
         created(){
@@ -142,30 +155,56 @@
             this.api.forEach((item,index)=>{
                 if(option.type === item.type){
                     this.apiIndex = index;
+                    this.type = option.type;
                     wx.setNavigationBarTitle({
                         title: item.title
                     })
                 }
             })
+            this.initConTextObj();
         },
         methods:{
+            initConTextObj(){
+                switch (this.type) {
+                    case 'default':
+                        this.conTextObj = new getEnjoyList();
+                        this.length = Number(this.conTextObj.enjoyList.length);
+                        this.conTextList = this.conTextObj.enjoyList;
+                    break;
+                    case 'friendly':
+                        this.conTextObj = new getFriendlyList();
+                        this.length = Number(this.conTextObj.friendlyList.length);
+                        this.conTextList = this.conTextObj.friendlyList;
+                        break;
+                    case 'sad':
+                        this.conTextObj = new getSadList();
+                        this.length = Number(this.conTextObj.sadList.length);
+                        this.conTextList = this.conTextObj.sadList;
+                        break;
+                }
+            },
             getResult(){
-                fetch(this.api[this.apiIndex].api,'get').then(res=>{
-                    console.log(res);
-                    if(res.errMsg === 'request:ok'){
-                      this.result = res.data;
-                        this.isShow = true;
-                        setTimeout(()=>{
-                            this.isShow = false
-                        },250)
-                    }else{
-                        wx.showToast({
-                            title: '诶呀,好疼',
-                            icon: 'none',
-                            duration: 2000
-                        })
-                    }
-                })
+                // fetch(this.api[this.apiIndex].api,'get').then(res=>{
+                //     //console.log(res);
+                //     if(res.errMsg === 'request:ok'){
+                //       this.result = res.data;
+                //         this.isShow = true;
+                //         setTimeout(()=>{
+                //             this.isShow = false
+                //         },250)
+                //     }else{
+                //         wx.showToast({
+                //             title: '诶呀,好疼',
+                //             icon: 'none',
+                //             duration: 2000
+                //         })
+                //     }
+                // })
+                this.result = this.randomContext().data?this.randomContext().data:this.randomContext();
+                this.isShow = true;
+                setTimeout(()=>{
+                    this.isShow = false
+                },250)
             },
             randomImg(){
                 let that = this;
@@ -181,6 +220,11 @@
                         timingFunc: 'easeIn'
                     }
                 })
+            },
+            randomContext(){
+                let index = parseInt(Math.random()*this.length);
+                let item = this.conTextList[index];
+                return item;
             },
             copy(){
                 //#ifdef MP-WEIXIN

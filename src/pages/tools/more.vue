@@ -5,9 +5,12 @@
             <text>拥有很多，不如有我</text>
         </view>
         <view class="about animated fadeInUp">
+            <!--#ifdef MP-WEIXIN-->
+            <button class="share" open-type="share">转发小程序</button>
+            <!--#endif-->
             <text>感谢使用这款有趣的小程序！</text>
             <text>如果您觉得好用，可以推广出去哦~</text>
-            <text>也可以打赏下可怜的程序猿小哥哥๑乛◡乛๑</text>
+            <text>也可以给可怜的小哥哥发个1元小红包吧๑乛◡乛๑</text>
         </view>
         <view class="money animated fadeInUp">
             <view>
@@ -41,7 +44,7 @@
                     current: currentUrl, // 当前显示图片的http链接
                     urls: that.imgList // 需要预览的图片http链接列表
                 })
-            }
+            },
         }
     }
 </script>
@@ -90,6 +93,24 @@
                 font-size: 30upx;
                 display: block;
                 margin-bottom: 5px;
+            }
+            .share{
+                color: #fff;
+                font-size: 34upx;
+                z-index: 2;
+                padding: 0;
+                border: 1px solid #fff;
+                background:initial;
+                outline: none;
+                text-align: center;
+                height: 40px;
+                line-height: 40px;
+                margin-bottom: 5px;
+                width: 200upx;
+
+                &:after{
+                    border: none;
+                }
             }
         }
 

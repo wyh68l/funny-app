@@ -6,6 +6,9 @@
       <view @tap="page++">下一页</view>
     </view>
     <view class="box animated fadeInUp">
+        <view class="title">
+            <text>{{tip}}</text>
+        </view>
       <view class="title">
         <text>{{newYearPoet[poetIndex].mes}}</text>
         <text class="author">{{newYearPoet[poetIndex].author}}</text>
@@ -14,10 +17,6 @@
           <view class="item" v-for="(item,index) in changePage" :key="item.id">
             <text class="mes">{{item.mes}}</text>
             <text class="copy" @tap="copy(item.mes,item.id)">复制</text>
-
-            <!--#ifdef MP-WEIXIN-->
-            <button class="share" open-type="share">转发</button>
-            <!--#endif-->
           </view>
       </view>
     </view>
@@ -34,6 +33,8 @@
                 result:'',
                 tips:'',
                 isShow:false,
+                tip:'群发小提示:复制祝福语->微信消息页面右上角点击搜索按钮->输入\'群发助手\'' +
+                    '->新建群发->多选好友->下一步->粘贴祝福语->发送即可',
                 imgList:[
                     'https://ae01.alicdn.com/kf/U529d5c5750714689a12b2354a6f6cd9ag.jpg',
                     'https://ae01.alicdn.com/kf/Ucd7234a1b4904a5e991de97f8ff37c7bw.jpg',
@@ -267,7 +268,6 @@
       overflow: scroll;
 
       .title{
-        height: 120px;
         position: relative;
         border-radius: 12upx;
         padding: 20px 30upx;
@@ -327,23 +327,6 @@
             color: #fff;
             font-size: 34upx;
             z-index: 2;
-          }
-          .share{
-            position: absolute;
-            right: 100px;
-            bottom: 0;
-            color: #fff;
-            font-size: 34upx;
-            z-index: 2;
-            padding: 0;
-            border: none;
-            background:initial;
-            outline: none;
-            text-align: center;
-
-            &:after{
-              border: none;
-            }
           }
 
           &:after{
