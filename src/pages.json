@@ -33,6 +33,21 @@
           "navigationBarTitleText": "关于作者",
           "navigationBarBackgroundColor": "#83a4d4"
         }
+      },
+      {
+        "path": "pages/tools/photoShop",
+        "style": {
+          "navigationBarTitleText": "在线PS",
+          "navigationBarBackgroundColor": "#474747"
+        }
+      },
+      {
+        "path": "pages/tools/game",
+        "style": {
+          "navigationBarTitleText": "童年回忆",
+          "navigationBarBackgroundColor": "#F9F9F9",
+          "navigationBarTextStyle": "black"
+        }
       }
 	],
 	"globalStyle": {

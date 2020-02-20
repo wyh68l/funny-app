@@ -64,7 +64,7 @@
                     'https://ae01.alicdn.com/kf/U4e7ae4b89fe74c139c275a5c67b9eb3ci.jpg',
                     'https://ae01.alicdn.com/kf/Ufaa6a9946c23401b8dea0e3a4e445c52R.jpg',
                     'https://ae01.alicdn.com/kf/U21d9dcc50e0c4869ae84c49b73e708d0z.jpg',
-                    'https://ae01.alicdn.com/kf/Uc3d2b481d1bc40b0847d8b4bce61590dP.jpg',
+                    'https://ae01.alicdn.com/kf/H46c61f38b14f407aa2711b298a4870a4W.jpg',
                     'https://ae01.alicdn.com/kf/Uadc0e683f9e64fb88a55413e16b9dc98z.jpg',
                 ],
                 color:[
@@ -118,7 +118,7 @@
                     },
                     {
                         index:12,
-                        color:'#1A6D98'
+                        color:'#5E7383'
                     },
                     {
                         index:13,
@@ -152,6 +152,11 @@
             this.randomImg();
         },
         onLoad(option){
+            //#ifdef MP-WEIXIN
+            wx.showShareMenu({
+                withShareTicket: true
+            })
+            //#endif
             this.api.forEach((item,index)=>{
                 if(option.type === item.type){
                     this.apiIndex = index;
@@ -319,9 +324,12 @@
       }
 
       .copy{
-        color: #fff;
-        font-size: 32upx;
-        margin: 40upx;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          color: #fff;
+          font-size: 32upx;
+          margin: 40upx;
       }
     }
 

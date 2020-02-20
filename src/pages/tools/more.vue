@@ -31,10 +31,17 @@
         data(){
             return {
                 imgList: [
-                    "https://ae01.alicdn.com/kf/U0e851f2f55064818bfbcf864373f9f76k.jpg",
-                    "https://ae01.alicdn.com/kf/U42dd6d512f3c4a9994372b0e3b445635E.jpg",
+                    "https://ae01.alicdn.com/kf/H4ac62d11328f4e5599b2b36ee80f4b72w.jpg",
+                    "https://ae01.alicdn.com/kf/Hf935989e748e428eadde064960b08755a.jpg",
                 ]
             }
+        },
+        onLoad(){
+            //#ifdef MP-WEIXIN
+            wx.showShareMenu({
+                withShareTicket: true
+            })
+            //#endif
         },
         methods:{
             imgView(event){

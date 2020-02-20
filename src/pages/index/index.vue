@@ -39,6 +39,9 @@
         },
         onLoad() {
             //#ifdef MP-WEIXIN
+            wx.showShareMenu({
+                withShareTicket: true
+            })
             //判断全局数据是否存在
             // let that = this;
             // this.canIUse = wx.canIUse('button.open-type.getUserInfo'); //wx.canIUse判断api接口是否还有用

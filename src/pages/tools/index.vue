@@ -67,6 +67,22 @@
                         delay:'delay-400ms'
                     },
                     {
+                        title: '指尖绘图',
+                        tips: '不管在何处也能使用PS啦！',
+                        bgc: 'https://ae01.alicdn.com/kf/H44a6d0defc054da690c0602962aca48aC.png',
+                        src: 'photoShop',
+                        goTo: '进入',
+                        delay:'delay-600ms'
+                    },
+                    {
+                        title: '童年回忆',
+                        tips: '随时随地可以让你玩上一把小游戏',
+                        bgc: 'https://ae01.alicdn.com/kf/H4c42c230f2f9454787f30a3a7da7c54fu.jpg',
+                        src: 'game',
+                        goTo: '进入',
+                        delay:'delay-600ms'
+                    },
+                    {
                         title: '敬请期待',
                         tips: '不如给程序猿小哥哥资助点硬币',
                         bgc: 'https://ae01.alicdn.com/kf/Ud2a06b08b1cb4326b1476fb76c45a6d0D.jpg',
@@ -78,7 +94,11 @@
             }
         },
         onLoad() {
-
+            //#ifdef MP-WEIXIN
+            wx.showShareMenu({
+                withShareTicket: true
+            })
+            //#endif
         },
     }
 </script>
