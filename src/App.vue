@@ -1,4 +1,5 @@
 <script>
+    import Vue from 'vue';
     export default {
         globalData: {
             userInfo: null
@@ -48,6 +49,28 @@
                     }
                 })
                 //#endif
+
+            uni.getSystemInfo({
+                success:function(e){
+                    Vue.prototype.statusBar = e.statusBarHeight
+                    // #ifndef MP
+                    if(e.platform == 'android') {
+                        Vue.prototype.customBar = e.statusBarHeight + 50+'px'
+                    }else {
+                        Vue.prototype.customBar = e.statusBarHeight + 45+'px'
+                    }
+                    // #endif
+
+                    // #ifdef MP-WEIXIN
+                    let menuButtonObject = wx.getMenuButtonBoundingClientRect();
+                    Vue.prototype.customBar = menuButtonObject.top+'px';//胶囊按钮与顶部的距离
+                    // #endif
+
+                    // #ifdef MP-ALIPAY
+                    Vue.prototype.customBar = e.statusBarHeight + e.titleBarHeight+'px'
+                    // #endif
+                }
+            })
         },
         onShow: function() {
             //console.log('App Show')
@@ -66,5 +89,7 @@
   @import url("common/public_css/animate.min.css");
   @import url("common/public_css/animate_base.less");
   @import url("common/public_css/iconfont.css");
+
+
 
 </style>

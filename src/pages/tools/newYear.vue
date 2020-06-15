@@ -1,5 +1,6 @@
 <template>
-  <view class='content' :style="{'background':'url('+bgImg+')','backgroundSize':'cover'}">
+  <view class='content'>
+      <!--<Back></Back>-->
     <view class="selectPage animated fadeInUp">
       <view @tap="page = page<=1?1:page-1">上一页</view>
       <view><input type="number" v-model="page"></view>
@@ -17,6 +18,9 @@
           <view class="item" v-for="(item,index) in changePage" :key="item.id">
             <text class="mes">{{item.mes}}</text>
             <text class="copy" @tap="copy(item.mes,item.id)">复制</text>
+              <!--#ifdef MP-WEIXIN-->
+              <button class="share" open-type="share">分享</button>
+              <!--#endif-->
           </view>
       </view>
     </view>
@@ -26,7 +30,11 @@
 <script>
     import {fetch} from 'serves/serves'
     import {getYearsList} from "../../static/data/newYears";
+    import Back from '../../components/Back'
     export default {
+        components:{
+            Back
+        },
         name: "newYear",
         data(){
             return {
@@ -129,9 +137,16 @@
         },
         computed:{
             changePage(){
-                this.newYearsList2 = this.newYearsList.slice(this.page*10-10,this.page*10);
+                this.newYearsList2 = this.newYearsList.slice(0,this.page*10);
                 return this.newYearsList2;
             }
+        },
+        onReachBottom() {
+            wx.showLoading();
+            setTimeout(()=> {
+                this.page++;
+                wx.hideLoading();
+            }, 300);
         },
         methods:{
             init(){
@@ -245,16 +260,19 @@
     /*rgb(242, 112, 156), rgb(255, 148, 114)渐变红*/
     background: linear-gradient(to bottom, rgb(131, 164, 212), rgb(182, 191, 195));
     /*background-size: cover;*/
-    height: 100%;
+    /*height: 100%;*/
   }
 </style>
 <style scoped lang="less">
   .content{
-    height: 100%;
-    padding-top: 20px;
+    padding-top: 20upx;
+      background: rgb(131, 164, 212);
+      /*background-size: cover;*/
+      height: 100%;
     box-sizing: border-box;
 
     .selectPage{
+        width: 100%;
       display: flex;
       justify-content: space-around;
         padding-bottom: 20px;
@@ -270,9 +288,7 @@
 
     .box{
       width: 92%;
-      height: 93%;
       margin: 0 auto;
-      overflow: scroll;
 
       .title{
         position: relative;
@@ -330,11 +346,32 @@
           .copy{
             position: absolute;
             right: 30px;
-            bottom: 10px;
+            bottom: 23rpx;
             color: #fff;
             font-size: 34upx;
+              height: 41rpx;
+              line-height: 41rpx;
             z-index: 2;
           }
+
+            .share{
+                position: absolute;
+                height: 41rpx;
+                line-height: 41rpx;
+                bottom: 23rpx;
+                right: 150upx;
+                color: #fff;
+                font-size: 32upx;
+                z-index: 2;
+                padding: 0;
+                background:initial;
+                outline: none;
+                width: 100upx;
+
+                &:after{
+                    border: none;
+                }
+            }
 
           &:after{
             content: '';

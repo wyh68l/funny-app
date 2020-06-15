@@ -1,5 +1,6 @@
 <template>
     <view class="page">
+        <!--<Back></Back>-->
         <view class="tip animated fadeInUp">
             <image src="../../static/images/logo.png"></image>
             <text>拥有很多，不如有我</text>
@@ -7,9 +8,14 @@
         <view class="about animated fadeInUp">
             <!--#ifdef MP-WEIXIN-->
             <button class="share" open-type="share">转发小程序</button>
-            <!--#endif-->
             <text>感谢使用这款有趣的小程序！</text>
-            <text>如果您觉得好用，可以推广出去哦~</text>
+            <!--#endif-->
+
+            <!--#ifdef APP-PLUS-->
+            <text>同款微信小程序'简桔'已上线哦~</text>
+            <!--#endif-->
+
+            <text>如果觉得好用的话，可以推广出去呀~</text>
             <text>也可以给可怜的小哥哥发个1元小红包吧๑乛◡乛๑</text>
         </view>
         <view class="money animated fadeInUp">
@@ -26,8 +32,12 @@
 </template>
 
 <script>
+    import Back from '../../components/Back'
     export default {
         name: "more",
+        components:{
+            Back
+        },
         data(){
             return {
                 imgList: [
@@ -67,7 +77,7 @@
 </style>
 <style scoped lang="less">
     .page{
-        padding-top: 20px;
+        padding-top: 20upx;
 
         .tip{
             width: 500upx;

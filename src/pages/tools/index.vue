@@ -1,5 +1,6 @@
 <template>
   <view class="content">
+      <!--<Back></Back>-->
     <view class="toolsList">
       <view v-for="(item,index) in toolsList" :key="index" class="item animated fadeInUp" :class="item.delay">
         <image :src="item.bgc" mode="aspectFill"></image>
@@ -29,7 +30,11 @@
    * https://ae01.alicdn.com/kf/U5b6b2023f2bc445c86409711bc6b56bca.jpg
    * https://ae01.alicdn.com/kf/U83db8e0e4d404533ba06d6bb24a2e4ebr.jpg
    * */
+    import Back from '../../components/Back'
     export default {
+        components:{
+            Back
+        },
         data() {
             return {
                 delay:3,
@@ -37,7 +42,7 @@
                 toolsList: [{
                     title: '欢喜如你',
                     tips: '斯人如彩虹，遇上方知有',
-                    bgc: 'https://ae01.alicdn.com/kf/Ud82d3b1070a140f4a2d8518e55b0294aA.jpg',
+                    bgc: 'https://hq-one-stand.oss-cn-shenzhen.aliyuncs.com/one-stand/photo/20200611/icon11.jpg',
                     src: 'enjoy?type=default',
                     goTo: '进入',
                     delay:''
@@ -45,7 +50,7 @@
                     {
                         title: '猜你所享',
                         tips: '猜你所想，分享日常',
-                        bgc: 'https://ae01.alicdn.com/kf/U01fa7358b55f4830866f417e34b41b28l.jpg',
+                        bgc: 'https://hq-one-stand.oss-cn-shenzhen.aliyuncs.com/one-stand/photo/20200611/icon6.jpg',
                         src: 'enjoy?type=friendly',
                         goTo: '进入',
                         delay:'delay-200ms'
@@ -53,7 +58,7 @@
                     {
                         title: '心灵鸡汤',
                         tips: '你在鸡汤里下毒。。',
-                        bgc: 'https://ae01.alicdn.com/kf/U919ffdca820c408ca73d035fa313ac4fL.jpg',
+                        bgc: 'https://hq-one-stand.oss-cn-shenzhen.aliyuncs.com/one-stand/photo/20200611/icon10.jpg',
                         src: 'enjoy?type=sad',
                         goTo: '进入',
                         delay:'delay-200ms'
@@ -61,7 +66,7 @@
                     {
                         title: '今夕何年',
                         tips: '故乡今夜思千里，霜鬓明朝又一年',
-                        bgc: 'https://ae01.alicdn.com/kf/Ucab0d091384a4ac6a1c90467db03c002Y.jpg',
+                        bgc: 'https://hq-one-stand.oss-cn-shenzhen.aliyuncs.com/one-stand/photo/20200611/icon9.jpg',
                         src: 'newYear',
                         goTo: '进入',
                         delay:'delay-400ms'
@@ -69,15 +74,15 @@
                     {
                         title: '指尖绘图',
                         tips: '不管在何处也能使用PS啦！',
-                        bgc: 'https://ae01.alicdn.com/kf/H44a6d0defc054da690c0602962aca48aC.png',
+                        bgc: 'https://hq-one-stand.oss-cn-shenzhen.aliyuncs.com/one-stand/photo/20200611/icon1.jpg',
                         src: 'photoShop',
                         goTo: '进入',
                         delay:'delay-600ms'
                     },
                     {
-                        title: '童年回忆',
-                        tips: '随时随地可以让你玩上一把小游戏',
-                        bgc: 'https://ae01.alicdn.com/kf/H4c42c230f2f9454787f30a3a7da7c54fu.jpg',
+                        title: '初音未来',
+                        tips: '动次打次~你能找到彩蛋嘛~',
+                        bgc: 'https://hq-one-stand.oss-cn-shenzhen.aliyuncs.com/one-stand/photo/20200611/icon60.jpg',
                         src: 'game',
                         goTo: '进入',
                         delay:'delay-600ms'
@@ -85,7 +90,7 @@
                     {
                         title: '敬请期待',
                         tips: '不如给程序猿小哥哥资助点硬币',
-                        bgc: 'https://ae01.alicdn.com/kf/Ud2a06b08b1cb4326b1476fb76c45a6d0D.jpg',
+                        bgc: 'https://hq-one-stand.oss-cn-shenzhen.aliyuncs.com/one-stand/photo/20200611/icon52.png',
                         src: 'more',
                         goTo: '可怜',
                         delay:'delay-600ms'
@@ -140,8 +145,8 @@
           z-index: 2;
           width: 100%;
           height: 100%;
-          opacity: .4;
-          background-color: rgba(0.0.0.4);
+          opacity: 0.4;
+           background-color: #000;
           border-radius: 15px;
         }
         .box{

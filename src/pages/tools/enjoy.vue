@@ -1,5 +1,6 @@
 <template>
   <view class='content' :style="{'background':'url('+bgImg+')','backgroundSize':'cover'}">
+      <Back @click.native='goBack'></Back>
       <view class="result animated fadeInUp">
         <textarea v-model="result"
                   disabled class="text"
@@ -7,6 +8,9 @@
         >
         </textarea>
         <text class="copy" @tap="copy" v-show="result !== '' && result">复制</text>
+          <!--#ifdef MP-WEIXIN-->
+          <button class="share" open-type="share" v-show="result !== '' && result">分享</button>
+          <!--#endif-->
       </view>
       <!--<view class="tips animated fadeInUp">-->
           <!--<text>Tips:如果点击生成无效果,请尝试以下步骤</text>-->
@@ -25,8 +29,12 @@
   import {getEnjoyList} from "../../static/data/enjoy";
   import {getFriendlyList} from "../../static/data/friendly";
   import {getSadList} from "../../static/data/sad";
+  import Back from '../../components/Back'
     export default {
         name: "enjoy",
+        components:{
+            Back
+        },
         data(){
             return {
                 result:'',
@@ -58,7 +66,7 @@
                     'https://ae01.alicdn.com/kf/U3269b8989d4641029463a7b63c6081c7U.jpg',
                     'https://ae01.alicdn.com/kf/Udabe55e8fd8f49479084e58ab17e33937.jpg',
                     'https://ae01.alicdn.com/kf/U4e0158f556b44d3aa4eee97c8f32d628o.jpg',
-                    'https://ae01.alicdn.com/kf/U8140ddc5f96d4e0090eddae0abde24d3I.jpg',
+                    'https://hq-one-stand.oss-cn-shenzhen.aliyuncs.com/one-stand/photo/20200611/icon36.jpg',
                     'https://ae01.alicdn.com/kf/U8b55c71b010342b2bfc943e062f7921bp.jpg',
                     'https://ae01.alicdn.com/kf/U179c3ff3d4484f37b023147a4fcc1c5e8.jpg',
                     'https://ae01.alicdn.com/kf/U4e7ae4b89fe74c139c275a5c67b9eb3ci.jpg',
@@ -94,7 +102,7 @@
                     },
                     {
                         index:6,
-                        color:'#32617A'
+                        color:'#2B5C88'
                     },
                     {
                         index:7,
@@ -169,6 +177,22 @@
             this.initConTextObj();
         },
         methods:{
+            goBack(){
+                //#ifdef MP-WEIXIN
+                console.log(getCurrentPages());
+                if(getCurrentPages().length >1){
+                    uni.navigateBack();
+                }else {
+                    uni.reLaunch({
+                        url: '../index/index'
+                    });
+                }
+                //#endif
+
+                //#ifdef H5 || APP-PLUS
+                uni.navigateBack();
+                //#endif
+            },
             initConTextObj(){
                 switch (this.type) {
                     case 'default':
@@ -211,20 +235,121 @@
                     this.isShow = false
                 },250)
             },
+            sendMes(){
+                console.log('sasa');
+                // wx.requestSubscribeMessage({ //获取下发权限
+                //     tmplIds: ['y2k4X9fDqN9nKEkoZTo1aw_YBgEj5RPuKt8ANYmzSUo'], //此处写在后台获取的模板ID，可以写多个模板ID，看自己的需求
+                //     success: (res) => {
+                //         if (res['y2k4X9fDqN9nKEkoZTo1aw_YBgEj5RPuKt8ANYmzSUo'] == 'accept') { //accept--用户同意 reject--用户拒绝 ban--微信后台封禁,可不管
+                //             // 获取access_token（仅为测试，正常需要在后台获取）
+                //
+                //         } else {
+                //             wx.showModal({
+                //                 title: '温馨提示',
+                //                 content: '您已拒绝授权，将无法在微信中收到简历审核通知！',
+                //                 showCancel: false,
+                //                 success: res => {
+                //                     if (res.confirm) {
+                //                         // 这里可以写自己的逻辑
+                //                     }
+                //                 }
+                //             })
+                //         }
+                //     }
+                // })
+
+                // wx.request({
+                //     url: 'https://api.weixin.qq.com/cgi-bin/token', //获取access_token的地址，微信定义的
+                //     data: {
+                //         grant_type: 'client_credential', //写死的
+                //         appid: 'wxb40b9e8b41b1c907', //小程序的appId(填写自己的)
+                //         secret: 'b38075f7b3b03b4de98fb38aa0277758' //小程序密钥,在小程序后台获取的，登录西奥程序后台->点开发->点开发设置->获取密钥就可以了
+                //     },
+                //     success: (req) => {
+                //         console.log('获取access_token成功', req.data.access_token)
+                //         let _access_token = req.data.access_token;
+                //         wx.login({
+                //             success: res => {
+                //                 if (res.code) { //code五分钟内有效
+                //                     // 调用下发接口前需要得到用户的openid
+                //                     wx.request({
+                //                         url: 'https://api.weixin.qq.com/sns/jscode2session',
+                //                         data: {
+                //                             appid: 'wxb40b9e8b41b1c907',
+                //                             secret: 'b38075f7b3b03b4de98fb38aa0277758',
+                //                             js_code: res.code, //登录时获取的code
+                //                             grant_type: "authorization_code", //授权类型，写死的
+                //                         },
+                //                         success: res => {
+                //                             console.log('获取openid成功', res)
+                //                             let _openid = res.data.openid;
+                //                             // 调用下发接口
+                //                             wx.request({
+                //                                 url: 'https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=' + _access_token,
+                //                                 method: "POST",
+                //                                 data: JSON.stringify({
+                //                                     touser: _openid, //当前用户的openid
+                //                                     template_id: "y2k4X9fDqN9nKEkoZTo1aw_YBgEj5RPuKt8ANYmzSUo", //需要下发的模板ID，如模板不多可让后台直接配置写死，多的话就通过微信获取模板列表接口查询模板
+                //                                     //page: "pages/garden/garden", //点击小程序订阅消息跳转的页面，可携带参数
+                //                                     data: {
+                //                                         "thing1": { //这个key值就是上面提到的关键词，在后台对应的模板详情里可以看到，等后台-->点订阅消息-->我的模板(没有的话先去公共模板库选一个)-->点击详情-->右边详细内容里就是对应的key了
+                //                                             "value": '已通过' //这个值是下发给用户的信息
+                //                                         },
+                //                                         "thing2": {
+                //                                             "value": '您被录用了'
+                //                                         },
+                //                                     }
+                //                                 }),
+                //                                 success: res => {
+                //                                     console.log(res)
+                //                                     wx.showToast({
+                //                                         title: '下发成功',
+                //                                     })
+                //                                     // 这里可以写自己的逻辑
+                //                                 }
+                //                             })
+                //                         }
+                //                     })
+                //                 }
+                //             }
+                //         })
+                //     }
+                // })
+
+                // wx.requestSubscribeMessage({
+                //     tmplIds: ['y2k4X9fDqN9nKEkoZTo1aw_YBgEj5RPuKt8ANYmzSUo'],
+                //     success (res) {
+                //         console.log(res);
+                //     },
+                //     fail(res){
+                //         console.log(res);
+                //     }
+                // })
+                // wx.login({
+                //     success (res) {
+                //         if (res.code) {
+                //             //发起网络请求
+                //             console.log(res.code);
+                //         } else {
+                //             console.log('登录失败！' + res.errMsg)
+                //         }
+                //     }
+                // })
+            },
             randomImg(){
                 let that = this;
-                let index = parseInt(Math.random()*14);
-                console.log(index);
-                this.bgImg = this.imgList[index];
+                let index = parseInt(Math.random()*37)+15;
+                //console.log(index);
+                this.bgImg = `https://hq-one-stand.oss-cn-shenzhen.aliyuncs.com/one-stand/photo/20200611/icon${index}.jpg`;
                 // console.log(wx);
-                wx.setNavigationBarColor({
-                    frontColor: '#ffffff',
-                    backgroundColor: that.color[index].color,
-                    animation: {
-                        duration: 400,
-                        timingFunc: 'easeIn'
-                    }
-                })
+                // wx.setNavigationBarColor({
+                //     frontColor: '#ffffff',
+                //     //backgroundColor: that.color[index].color,
+                //     animation: {
+                //         duration: 400,
+                //         timingFunc: 'easeIn'
+                //     }
+                // })
             },
             randomContext(){
                 let index = parseInt(Math.random()*this.length);
@@ -232,6 +357,7 @@
                 return item;
             },
             copy(){
+
                 //#ifdef MP-WEIXIN
                 let that = this;
                 /*wx.setClipboardData设置剪贴板*/
@@ -240,7 +366,7 @@
                     success (res) {
                     },
                     fail(res) {
-                        that.tips = '诶呀,再试下'
+                        that.tips = '诶呀,再试下吧'
                         wx.showToast({
                             title: that.tips,
                             icon: 'none',
@@ -250,7 +376,23 @@
                 })
                 //#endif
 
-                //#ifdef H5 || APP-PLUS
+                //#ifdef APP-PLUS
+                uni.setClipboardData({
+                    data:this.result,//要被复制的内容
+                    success:()=>{//复制成功的回调函数
+                        uni.showToast({//提示
+                            title:'复制成功'
+                        })
+                    },
+                    fail:()=>{
+                        uni.showToast({//提示
+                            title:'诶呀 再试下吧'
+                        })
+                    }
+                });
+                //#endif
+
+                //#ifdef H5
                 /*使用插件复制*/
                     this.$copyText(this.result).then((e)=>{
                         this.tips = '复制成功咯'
@@ -261,7 +403,7 @@
                         })
                         console.log(e)
                     }, (e)=> {
-                        this.tips = '诶呀,再试下'
+                        this.tips = '诶呀,再试下吧'
                         wx.showToast({
                             title: this.tips,
                             icon: 'none',
@@ -287,7 +429,7 @@
     height: 100%;
     /*background: url('https://ae01.alicdn.com/kf/U529d5c5750714689a12b2354a6f6cd9ag.jpg') no-repeat;*/
     /*background-size: cover;*/
-    padding-top: 60upx;
+    padding-top: 190upx;
     box-sizing: border-box;
 
 
@@ -325,12 +467,31 @@
 
       .copy{
           position: absolute;
-          bottom: 0;
-          right: 0;
+          bottom: 40upx;
+          right: 40upx;
           color: #fff;
+          height: 41rpx;
+          line-height: 41rpx;
           font-size: 32upx;
-          margin: 40upx;
       }
+        .share{
+            position: absolute;
+            height: 41rpx;
+            line-height: 41rpx;
+            bottom: 40upx;
+            right: 150upx;
+            color: #fff;
+            font-size: 32upx;
+            z-index: 2;
+            padding: 0;
+            background:initial;
+            outline: none;
+            width: 100upx;
+
+            &:after{
+                border: none;
+            }
+        }
     }
 
       .tips{
@@ -354,6 +515,7 @@
       height: 100upx;
       line-height: 100upx;
       border-radius: 50%;
+      transform-origin: 50% 50%;
       border: 1upx solid #fff;
       z-index: 2;
 
@@ -366,11 +528,12 @@
         /*background: #fff;*/
         border-radius: 50%;
         border: 1upx solid #fff;
-        transform: scale(1,1);
-        transform-origin: 50% 50%;
+        //transform: scale(1,1);
+        //transform-origin: -50% -50%;
         animation: ripple 3s ease-out 0ms infinite;
-        top: -2upx;
-        left:-2upx;
+        top: 0;
+        left:0;
+
       }
       &:before{
         content: "";
@@ -381,11 +544,11 @@
         /*background: #fff;*/
         border-radius: 50%;
         border: 1upx solid #fff;
-        transform: scale(1,1);
-        transform-origin: 50% 50%;
+        //transform: scale(1,1);
+        //transform-origin: 50% 50%;
         animation: ripple 3s ease-out 1000ms infinite;
-        top: -2upx;
-        left:-2upx;
+        top: 0;
+        left:0;
       }
 
       .button{

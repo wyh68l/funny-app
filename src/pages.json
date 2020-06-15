@@ -16,8 +16,9 @@
     {
       "path": "pages/tools/enjoy",
       "style": {
-        "navigationBarTitleText": "",
-        "navigationBarBackgroundColor": "#83a4d4"
+         "navigationStyle":"custom"
+        // "navigationBarTitleText": "",
+        // "navigationBarBackgroundColor": "#83a4d4"
       }
     },
     {
@@ -39,23 +40,28 @@
         "style": {
           "navigationBarTitleText": "在线PS",
           "navigationBarBackgroundColor": "#474747"
+
         }
       },
       {
         "path": "pages/tools/game",
         "style": {
-          "navigationBarTitleText": "童年回忆",
+          "navigationBarTitleText": "",
           "navigationBarBackgroundColor": "#F9F9F9",
           "navigationBarTextStyle": "black"
         }
       }
 	],
+  "usingComponents": {
+    "mp-icon": "../../components/icon/icon"
+  },
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "简桔",
 		"navigationBarBackgroundColor": "#83a4d4",
     //#83a4d4渐变蓝 #D38312 渐变黄 #c9ffbf 渐变绿 #f2709c渐变红
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+      "onReachBottomDistance": 50
 	},
   "condition" : { //模式配置，仅开发期间生效
     "current": 0, //当前激活的模式(list 的索引项)

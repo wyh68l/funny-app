@@ -1,9 +1,9 @@
 {
     "name" : "简桔",
     "appid" : "__UNI__EABCB5E",
-    "description" : "",
-    "versionName" : "1.0.1",
-    "versionCode" : "100",
+    "description" : "一款集合了多种有趣工具的App",
+    "versionName" : "1.0.2",
+    "versionCode" : 102,
     "transformPx" : false,
     "app-plus" : {
         /* 5+App特有相关 */
@@ -43,11 +43,16 @@
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-                ]
+                ],
+                "abiFilters" : [ "armeabi-v7a", "x86" ]
             },
-            "ios" : {},
+            "ios" : {
+                "idfa" : true
+            },
             /* ios打包配置 */
-            "sdkConfigs" : {},
+            "sdkConfigs" : {
+                "ad" : {}
+            },
             "icons" : {
                 "android" : {
                     "hdpi" : "unpackage/res/icons/72x72.png",
