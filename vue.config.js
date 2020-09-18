@@ -11,5 +11,8 @@ module.exports = {
         'static':'@/static'
       }
     }
-  }
+  },
+    devServer: {
+        port: 80,
+    },
 }
