@@ -1,24 +1,41 @@
 <template>
     <view class="page">
         <!--<Back></Back>-->
+
+        <!--#ifdef MP-WEIXIN || H5-->
         <view class="tip animated fadeInUp">
             <image src="../../static/images/logo.png"></image>
             <text>拥有很多，不如有我</text>
         </view>
+        <!--#endif-->
+
+        <!--#ifdef APP-PLUS-->
+        <view class="tip animated fadeInUp" style="margin-top: 50px;">
+            <image src="../../static/images/logo.png"></image>
+            <text>拥有很多，不如有我</text>
+        </view>
+        <!--#endif-->
         <view class="about animated fadeInUp">
             <!--#ifdef MP-WEIXIN-->
             <button class="share" open-type="share">转发小程序</button>
             <text>感谢使用这款有趣的小程序！</text>
             <!--#endif-->
 
-            <!--#ifdef APP-PLUS-->
-            <text>同款微信小程序'简桔'已上线哦~</text>
+            <!--#ifdef APP-PLUS || H5-->
+            <text>感谢使用这款有趣的app！</text>
+            <text>同款微信小程序<span style='color: #ff401c;'>'简桔'</span>已上线哦~希望多多关注呦~</text>
+            <text>后续还会不断更新更多有趣的功能</text>
             <!--#endif-->
 
             <text>如果觉得好用的话，可以推广出去呀~</text>
+
+            <!--#ifdef MP-WEIXIN-->
             <text>也可以给可怜的小哥哥发个1元小红包吧๑乛◡乛๑</text>
+            <!--#endif-->
         </view>
-        <view class="money animated fadeInUp">
+
+        <!--#ifdef MP-WEIXIN || H5-->
+       <view class="money animated fadeInUp">
             <view>
                 <image :src="imgList[0]" @tap="imgView" :data-src="imgList[0]"></image>
                 <text>谢谢靓女</text>
@@ -28,6 +45,9 @@
                 <text>谢谢靓仔</text>
             </view>
         </view>
+        <!--#endif-->
+
+
     </view>
 </template>
 
@@ -43,7 +63,8 @@
                 imgList: [
                     "https://ae01.alicdn.com/kf/H4ac62d11328f4e5599b2b36ee80f4b72w.jpg",
                     "https://ae01.alicdn.com/kf/Hf935989e748e428eadde064960b08755a.jpg",
-                ]
+                ],
+
             }
         },
         onLoad(){
@@ -56,6 +77,7 @@
         methods:{
             imgView(event){
                 let currentUrl = event.currentTarget.dataset.src;
+                console.log(currentUrl);
                 let that = this;
                 wx.previewImage({
                     current: currentUrl, // 当前显示图片的http链接

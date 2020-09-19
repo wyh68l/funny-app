@@ -29,15 +29,16 @@
     export default {
         data() {
             return {
-                title: '简具',
+                title: '简桔',
                 hasUserInfo: false,
                 app: null,
                 userInfo: null,
                 // flag:false,
-                canIUse: true
+                canIUse: true,
             }
         },
         onLoad() {
+
             //#ifdef MP-WEIXIN
             wx.showShareMenu({
                 withShareTicket: true

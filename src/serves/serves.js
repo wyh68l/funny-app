@@ -33,7 +33,7 @@ Axios.defaults.adapter = function (config) {
         return reject(err)
       },
       complete: res => {
-        wx.hideLoading()
+        //wx.hideLoading()
         // TODO:
       }
     })
@@ -86,9 +86,15 @@ export function fetch (options) {
   return new Promise((resolve, reject) => {
     Axios(options)
       .then(response => {
+        wx.hideLoading();
         resolve(response)
       })
       .catch(error => {
+        wx.showToast({
+            title: '诶呀,好疼',
+            icon: 'none',
+            duration: 2000
+        })
         reject(error)
       })
   })

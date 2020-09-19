@@ -213,27 +213,31 @@
                 }
             },
             getResult(){
-                // fetch(this.api[this.apiIndex].api,'get').then(res=>{
-                //     //console.log(res);
-                //     if(res.errMsg === 'request:ok'){
-                //       this.result = res.data;
-                //         this.isShow = true;
-                //         setTimeout(()=>{
-                //             this.isShow = false
-                //         },250)
-                //     }else{
-                //         wx.showToast({
-                //             title: '诶呀,好疼',
-                //             icon: 'none',
-                //             duration: 2000
-                //         })
-                //     }
-                // })
+              //#ifdef APP-PLUS
+                fetch(this.api[this.apiIndex].api,'get').then(res=>{
+                    // console.log(res);
+                    if(res.errMsg === 'request:ok'){
+                      this.result = res.data;
+                        this.isShow = true;
+                        setTimeout(()=>{
+                            this.isShow = false
+                        },250)
+                    }else{
+                        wx.showToast({
+                            title: '诶呀,好疼',
+                            icon: 'none',
+                            duration: 2000
+                        })
+                    }
+                })
+                //#endif
+                //#ifdef MP-WEIXIN || H5
                 this.result = this.randomContext().data?this.randomContext().data:this.randomContext();
                 this.isShow = true;
                 setTimeout(()=>{
                     this.isShow = false
                 },250)
+                //#endif
             },
             sendMes(){
                 console.log('sasa');
