@@ -19,6 +19,7 @@
             <!--#ifdef MP-WEIXIN-->
             <button class="share" open-type="share">转发小程序</button>
             <text>感谢使用这款有趣的小程序！</text>
+            <text>后续还会不断更新更多有趣的功能</text>
             <!--#endif-->
 
             <!--#ifdef APP-PLUS || H5-->
@@ -30,20 +31,22 @@
             <text>如果觉得好用的话，可以推广出去呀~</text>
 
             <!--#ifdef MP-WEIXIN-->
-            <text>也可以给可怜的小哥哥发个1元小红包吧๑乛◡乛๑</text>
+            <!--<text>也可以给可怜的小哥哥发个1元小红包吧๑乛◡乛๑</text>-->
             <!--#endif-->
         </view>
 
         <!--#ifdef MP-WEIXIN || H5-->
        <view class="money animated fadeInUp">
-            <view>
-                <image :src="imgList[0]" @tap="imgView" :data-src="imgList[0]"></image>
-                <text>谢谢靓女</text>
+            <view style="text-align: center;margin: 0 auto;">
+                <!--<image :src="imgList[0]" @tap="imgView" :data-src="imgList[0]"></image>-->
+                <image :src="appImgList[0]" @tap="imgView" :data-src="imgList[0]"></image>
+                <text>女生止步，靓仔们，这里有你们想康的东西呦~</text>
+                <text @tap="copy">{{apkUrl}}</text>
             </view>
-            <view>
-                <image :src="imgList[1]" @tap="imgView" :data-src="imgList[1]"></image>
-                <text>谢谢靓仔</text>
-            </view>
+            <!--<view>-->
+                <!--<image :src="imgList[1]" @tap="imgView" :data-src="imgList[1]"></image>-->
+                <!--<text>谢谢靓仔</text>-->
+            <!--</view>-->
         </view>
         <!--#endif-->
 
@@ -53,6 +56,7 @@
 
 <script>
     import Back from '../../components/Back'
+    import {getApkUrl} from 'serves/main'
     export default {
         name: "more",
         components:{
@@ -64,7 +68,8 @@
                     "https://ae01.alicdn.com/kf/H4ac62d11328f4e5599b2b36ee80f4b72w.jpg",
                     "https://ae01.alicdn.com/kf/Hf935989e748e428eadde064960b08755a.jpg",
                 ],
-
+                appImgList:['http://47.97.104.206:3000/download/wechat'],
+                apkUrl:'https://wws.lanzous.com/iiTaygul1le'
             }
         },
         onLoad(){
@@ -72,6 +77,11 @@
             wx.showShareMenu({
                 withShareTicket: true
             })
+            //#endif
+        },
+        created(){
+            //#ifdef APP-PLUS || H5
+            this.getApkUrl();
             //#endif
         },
         methods:{
@@ -84,6 +94,70 @@
                     urls: that.imgList // 需要预览的图片http链接列表
                 })
             },
+            getApkUrl(){
+                getApkUrl().then(res =>{
+                    let result = res.data.data;
+                    if(result.status === 200){
+                        this.apkUrl = result.link;
+                    }
+                })
+            },
+            copy(){
+                //#ifdef MP-WEIXIN
+                let that = this;
+                /*wx.setClipboardData设置剪贴板*/
+                wx.setClipboardData({
+                    data: this.apkUrl,
+                    success (res) {
+                    },
+                    fail(res) {
+                        that.tips = '诶呀,再试下吧'
+                        wx.showToast({
+                            title: that.tips,
+                            icon: 'none',
+                            duration: 2000
+                        })
+                    }
+                })
+                //#endif
+
+                //#ifdef APP-PLUS
+                uni.setClipboardData({
+                    data:this.apkUrl,//要被复制的内容
+                    success:()=>{//复制成功的回调函数
+                        uni.showToast({//提示
+                            title:'复制成功'
+                        })
+                    },
+                    fail:()=>{
+                        uni.showToast({//提示
+                            title:'诶呀 再试下吧'
+                        })
+                    }
+                });
+                //#endif
+
+                //#ifdef H5
+                /*使用插件复制*/
+                this.$copyText(this.apkUrl).then((e)=>{
+                    this.tips = '复制成功咯'
+                    wx.showToast({
+                        title: this.tips,
+                        icon: 'success',
+                        duration: 2000
+                    })
+                    console.log(e)
+                }, (e)=> {
+                    this.tips = '诶呀,再试下吧'
+                    wx.showToast({
+                        title: this.tips,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                    console.log(e)
+                })
+                //#endif
+            }
         }
     }
 </script>
@@ -162,7 +236,7 @@
 
             image{
                 width: 320upx;
-                height: 400upx;
+                height: 320upx;
             }
             text{
                 display: block;

@@ -1,4 +1,4 @@
-import {request,requestMock} from './serves'
+import {fetch} from './serves'
 
 // import {
 //   mainGoodsMock,
@@ -11,11 +11,24 @@ import {request,requestMock} from './serves'
 // import Mock from 'mockjs'
 
 //彩虹屁的接口--（弃用）
-export function getRainbow() {
-  return request({
-    url:'chp.shadiao.app/api.php'
-  })
+// export function getRainbow(url) {
+//   return request({url})
+// }
 
+//彩虹屁的接口
+export function getRainbow(url) {
+    return fetch({
+        url,
+        method:'get'
+    })
+}
+
+//彩虹屁的接口
+export function getApkUrl() {
+    return fetch({
+        url:'/api/download/url',
+        method:'get'
+    })
 }
 
 

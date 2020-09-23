@@ -25,10 +25,11 @@
 </template>
 
 <script>
-  import {fetch} from 'serves/serves'
-  import {getEnjoyList} from "../../static/data/enjoy";
-  import {getFriendlyList} from "../../static/data/friendly";
-  import {getSadList} from "../../static/data/sad";
+  import {getRainbow,getApkUrl} from 'serves/main'
+  // import {fetch} from 'serves/serves'
+  // import {getEnjoyList} from "../../static/data/enjoy";
+  // import {getFriendlyList} from "../../static/data/friendly";
+  // import {getSadList} from "../../static/data/sad";
   import Back from '../../components/Back'
     export default {
         name: "enjoy",
@@ -43,17 +44,20 @@
                 api:[
                     {
                         type:'friendly',
-                        api:'https://pyq.shadiao.app/api.php?from=wyh68l',
+                        api:'/pyq?from=wyh68l',
+                        apiwx:'https://pyq.shadiao.app/api.php?from=wyh68l',
                         title:'朋友圈文案'
                     },
                     {
                         type:'default',
-                        api:'https://chp.shadiao.app/api.php?from=wyh68l',
+                        api:'/chp?from=wyh68l',
+                        apiwx:'https://chp.shadiao.app/api.php?from=wyh68l',
                         title:'彩虹屁'
                     },
                     {
                         type:'sad',
-                        api:'https://du.shadiao.app/api.php?from=wyh68l',
+                        api:'/djt?from=wyh68l',
+                        apiwx:'https://du.shadiao.app/api.php?from=wyh68l',
                         title:'毒鸡汤'
                     },
                 ],
@@ -174,7 +178,7 @@
                     })
                 }
             })
-            this.initConTextObj();
+            //this.initConTextObj();使用本地存储的数据
         },
         methods:{
             goBack(){
@@ -213,11 +217,18 @@
                 }
             },
             getResult(){
-              //#ifdef APP-PLUS
-                fetch(this.api[this.apiIndex].api,'get').then(res=>{
+                let url;
+                //#ifdef MP-WEIXIN
+                url = this.api[this.apiIndex].apiwx;
+                //#endif
+                //#ifdef APP-PLUS || H5
+                url = this.api[this.apiIndex].api;
+                //#endif
+
+                getRainbow(url).then(res=>{
                     // console.log(res);
                     if(res.errMsg === 'request:ok'){
-                      this.result = res.data;
+                        this.result = res.data;
                         this.isShow = true;
                         setTimeout(()=>{
                             this.isShow = false
@@ -230,13 +241,13 @@
                         })
                     }
                 })
-                //#endif
+
                 //#ifdef MP-WEIXIN || H5
-                this.result = this.randomContext().data?this.randomContext().data:this.randomContext();
-                this.isShow = true;
-                setTimeout(()=>{
-                    this.isShow = false
-                },250)
+                // this.result = this.randomContext().data?this.randomContext().data:this.randomContext();
+                // this.isShow = true;
+                // setTimeout(()=>{
+                //     this.isShow = false
+                // },250)
                 //#endif
             },
             sendMes(){

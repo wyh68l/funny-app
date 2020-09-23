@@ -51,7 +51,7 @@ Axios.interceptors.request.use(
     return config
   },
   error => {
-    sendError(error)
+    //sendError(error)
     return Promise.reject(error.data)
   }
 )
@@ -71,13 +71,13 @@ Axios.interceptors.response.use(
     //注意这里statusCode有可能微信的ts声明文件里未定义，需要去声明文件里定义一下
     if ([200, 204].indexOf(res.statusCode) === -1) {
       console.log('res.status', res)
-      sendError(res)
+      //sendError(res)
       return Promise.reject(res.data)
     }
     return res
   },
   error => {
-    sendError(error)
+    //sendError(error)
     return Promise.reject(error)
   })
 
