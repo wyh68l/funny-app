@@ -218,10 +218,10 @@
             },
             getResult(){
                 let url;
-                //#ifdef MP-WEIXIN
+                //#ifdef MP-WEIXIN || APP-PLUS
                 url = this.api[this.apiIndex].apiwx;
                 //#endif
-                //#ifdef APP-PLUS || H5
+                //#ifdef H5
                 url = this.api[this.apiIndex].api;
                 //#endif
 

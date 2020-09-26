@@ -56,7 +56,7 @@
 
 <script>
     import Back from '../../components/Back'
-    import {getApkUrl} from 'serves/main'
+    import {getApkUrl,getVersion} from 'serves/main'
     export default {
         name: "more",
         components:{
@@ -69,7 +69,10 @@
                     "https://ae01.alicdn.com/kf/Hf935989e748e428eadde064960b08755a.jpg",
                 ],
                 appImgList:['http://47.97.104.206:3000/download/wechat'],
-                apkUrl:'https://wws.lanzous.com/iiTaygul1le'
+                apkUrl:'https://wws.lanzous.com/iiTaygul1le',
+                version: 103,
+                updateAppUrl:'',
+                isUpdate:false
             }
         },
         onLoad(){
@@ -83,6 +86,10 @@
             //#ifdef APP-PLUS || H5
             this.getApkUrl();
             //#endif
+
+            //#ifdef APP-PLUS
+            //this.getVersion();
+            //#endif
         },
         methods:{
             imgView(event){
@@ -94,11 +101,32 @@
                     urls: that.imgList // 需要预览的图片http链接列表
                 })
             },
+            getVersion(){
+                let options = {
+                    version:this.version,
+                    appName:'version_JJ'
+                }
+                getVersion(options).then(res =>{
+                    let result = res.data.data;
+                    if(res.data.status === 200 && result.flag){
+                        this.updateAppUrl = result.link;
+                        this.isUpdate = true;
+                    }else {
+                        wx.showToast({
+                            title: result.msg,
+                            icon: 'none',
+                            duration: 2000
+                        })
+                    }
+                })
+            },
             getApkUrl(){
                 getApkUrl().then(res =>{
                     let result = res.data.data;
                     if(result.status === 200){
                         this.apkUrl = result.link;
+                    }else {
+
                     }
                 })
             },

@@ -23,11 +23,21 @@ export function getRainbow(url) {
     })
 }
 
-//彩虹屁的接口
+//获取魅音apk下载
 export function getApkUrl() {
     return fetch({
-        url:'/api/download/url',
+        //url:'/api/download/url',
+        url:'http://47.97.104.206:3000/download/url',
         method:'get'
+    })
+}
+
+//获取版本更新
+export function getVersion(data) {
+    return fetch({
+        url:'http://47.97.104.206:3000/app/version',
+        method:'get',
+        data
     })
 }
 
