@@ -91,7 +91,7 @@
                 let that = this;
                 wx.previewImage({
                     current: currentUrl, // 当前显示图片的http链接
-                    urls: that.imgList // 需要预览的图片http链接列表
+                    urls: that.appImgList // 需要预览的图片http链接列表
                 })
             },
             getApkUrl(){
