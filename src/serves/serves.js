@@ -4,11 +4,11 @@ import axios from 'axios'
 //const NewTimeStamp = new Date().getTime()
 
 // axios全局设置
-const Axios = axios.create({
-  baseURL: process.env.BASE_API,
-  timeout: 1000 * 60 * 10,
-  responseType: 'json'
-})
+// const Axios = axios.create({
+//   baseURL: process.env.BASE_API,
+//   timeout: 1000 * 60 * 10,
+//   responseType: 'json'
+// })
 
 // axios.defaults.timeout = 30000
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
