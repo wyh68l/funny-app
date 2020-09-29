@@ -3,15 +3,14 @@ import axios from 'axios'
 // 时间戳
 //const NewTimeStamp = new Date().getTime()
 
-// axios全局设置
-// const Axios = axios.create({
-//   baseURL: process.env.BASE_API,
-//   timeout: 1000 * 60 * 10,
-//   responseType: 'json'
-// })
+//axios全局设置
+const Axios = axios.create({
+  timeout: 10000,
+  responseType: 'json'
+})
 
 // axios.defaults.timeout = 30000
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 
 //划重点！ 由于微信小程序需要用微信官方请求接口，因此需要用adapter自定义
 //`adapter` 允许自定义处理请求，以使测试更轻松,返回一个 promise 并应用一个有效的响应

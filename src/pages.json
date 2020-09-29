@@ -38,7 +38,7 @@
       {
         "path": "pages/tools/photoShop",
         "style": {
-          "navigationBarTitleText": "在线PS",
+          "navigationBarTitleText": "music",
           "navigationBarBackgroundColor": "#474747"
 
         }

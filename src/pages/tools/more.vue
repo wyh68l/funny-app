@@ -35,20 +35,19 @@
             <!--#endif-->
         </view>
 
-        <!--#ifdef MP-WEIXIN || H5-->
+
        <view class="money animated fadeInUp">
-            <view style="text-align: center;margin: 0 auto;">
-                <!--<image :src="imgList[0]" @tap="imgView" :data-src="imgList[0]"></image>-->
-                <image :src="appImgList[0]" @tap="imgView" :data-src="imgList[0]"></image>
-                <text>女生止步，靓仔们，这里有你们想康的东西呦~</text>
-                <text @tap="copy">{{apkUrl}}</text>
-            </view>
+            <!--<view style="text-align: center;margin: 0 auto;">-->
+                <!--&lt;!&ndash;<image :src="imgList[0]" @tap="imgView" :data-src="imgList[0]"></image>&ndash;&gt;-->
+                <!--<image :src="appImgList[0]" @tap="imgView" :data-src="appImgList[0]"></image>-->
+                <!--<text>女生止步，靓仔们，这里有你们想康的东西呦~</text>-->
+                <!--<text @tap="copy">{{apkUrl}}</text>-->
+            <!--</view>-->
             <!--<view>-->
                 <!--<image :src="imgList[1]" @tap="imgView" :data-src="imgList[1]"></image>-->
                 <!--<text>谢谢靓仔</text>-->
             <!--</view>-->
         </view>
-        <!--#endif-->
 
 
     </view>
@@ -69,7 +68,7 @@
                     "https://ae01.alicdn.com/kf/Hf935989e748e428eadde064960b08755a.jpg",
                 ],
                 appImgList:['http://47.97.104.206:3000/download/wechat'],
-                apkUrl:'https://wws.lanzous.com/iiTaygul1le',
+                apkUrl:'https://wws.lanzous.com/ihU7Dh0b3ta',
                 version: 103,
                 updateAppUrl:'',
                 isUpdate:false
@@ -123,7 +122,7 @@
             getApkUrl(){
                 getApkUrl().then(res =>{
                     let result = res.data.data;
-                    if(result.status === 200){
+                    if(res.data.status === 200){
                         this.apkUrl = result.link;
                     }else {
 

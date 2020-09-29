@@ -1,6 +1,9 @@
 <template>
   <view class='content' :style="{'background':'url('+bgImg+')','backgroundSize':'cover'}">
+      <!--#ifdef MP-WEIXIN || H5-->
       <Back @click.native='goBack'></Back>
+      <!--#endif-->
+
       <view class="result animated fadeInUp">
         <textarea v-model="result"
                   disabled class="text"
@@ -19,7 +22,7 @@
           <!--<text>（仅体验版可用）</text>-->
       <!--</view>-->
       <view class="search animated fadeInUp" @tap="getResult">
-        <button class="button">生成</button>
+        <div class="button">生成</div>
       </view>
     </view>
 </template>
@@ -437,6 +440,7 @@
     /*rgb(242, 112, 156), rgb(255, 148, 114)渐变红*/
     /*background: linear-gradient(to bottom, rgb(242, 112, 156), rgb(255, 148, 114));*/
     height: 100%;
+    overflow: hidden;
   }
 </style>
 <style scoped lang="less">
@@ -538,11 +542,11 @@
         content: "";
         display: block;
         position: absolute;
-        width: 100upx;
-        height: 100upx;
+        width: 100%;
+        height: 100%;
         /*background: #fff;*/
         border-radius: 50%;
-        border: 1upx solid #fff;
+        border: 1px solid #fff;
         //transform: scale(1,1);
         //transform-origin: -50% -50%;
         animation: ripple 3s ease-out 0ms infinite;
@@ -554,11 +558,11 @@
         content: "";
         display: block;
         position: absolute;
-        width: 100upx;
-        height: 100upx;
+        width: 100%;
+        height: 100%;
         /*background: #fff;*/
         border-radius: 50%;
-        border: 1upx solid #fff;
+        border: 1px solid #fff;
         //transform: scale(1,1);
         //transform-origin: 50% 50%;
         animation: ripple 3s ease-out 1000ms infinite;
@@ -567,19 +571,12 @@
       }
 
       .button{
-        width: 100upx;
-        height: 100upx;
-        line-height: 100upx;
-        padding: 0;
-        border: none;
-        background:initial;
-        outline: none;
+        width: 100%;
+        height: 100%;
+        /*border: 1px solid #fff;*/
+        /*border-radius: 50%;*/
         text-align: center;
         color: #fff;
-
-        &:after{
-          border: none;
-        }
       }
     }
   }

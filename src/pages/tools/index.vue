@@ -72,8 +72,8 @@
                         delay:'delay-400ms'
                     },
                     {
-                        title: '指尖绘图',
-                        tips: '不管在何处也能使用PS啦！',
+                        title: '心如止水',
+                        tips: '让身心回归自然的拥抱',
                         bgc: 'https://hq-one-stand.oss-cn-shenzhen.aliyuncs.com/one-stand/photo/20200611/icon1.jpg',
                         src: 'photoShop',
                         goTo: '进入',
