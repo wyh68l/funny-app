@@ -13,6 +13,13 @@
         "navigationBarBackgroundColor": "#232326"
       }
     },
+      {
+        "path": "pages/tools/Tools",
+        "style": {
+          "navigationBarTitleText": "简桔",
+          "navigationBarBackgroundColor": "#232326"
+        }
+      },
     {
       "path": "pages/tools/enjoy",
       "style": {
@@ -49,6 +56,26 @@
           "navigationBarTitleText": "",
           "navigationBarBackgroundColor": "#F9F9F9",
           "navigationBarTextStyle": "black"
+        }
+      },
+      {
+        "path": "pages/tools/emoji",
+        "style": {
+          "navigationStyle":"custom"
+        }
+      },
+      {
+        "path": "pages/tools/wallpaper",
+        "style": {
+          "navigationBarTitleText": "壁纸",
+          "navigationBarTextStyle": "white",
+          "navigationBarBackgroundColor": "#ddd6f3"
+        }
+      },
+      {
+        "path": "pages/tools/wallpaperInfo",
+        "style": {
+          "navigationStyle":"custom"
         }
       }
 	],

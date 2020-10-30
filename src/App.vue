@@ -89,7 +89,7 @@
   @import url("common/public_css/animate.min.css");
   @import url("common/public_css/animate_base.less");
   @import url("common/public_css/iconfont.css");
-  @import url("https://at.alicdn.com/t/font_1392728_z5v49ioej1.css");
+  /*@import url("https://at.alicdn.com/t/font_1392728_z5v49ioej1.css");*/
 
 
 

@@ -30,10 +30,10 @@
    * https://ae01.alicdn.com/kf/U5b6b2023f2bc445c86409711bc6b56bca.jpg
    * https://ae01.alicdn.com/kf/U83db8e0e4d404533ba06d6bb24a2e4ebr.jpg
    * */
-    import Back from '../../components/Back'
+    // import Back from '../../components/Back'
     export default {
         components:{
-            Back
+            // Back
         },
         data() {
             return {

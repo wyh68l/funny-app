@@ -103,7 +103,7 @@
             },
             goTo() {
                 uni.navigateTo({
-                    url: '../tools/index'
+                    url: '../tools/Tools'
                 })
             }
         },

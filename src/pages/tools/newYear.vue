@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import {fetch} from 'serves/serves'
+    import {fetch} from '@serves/serves.js'
     import {getYearsList} from "../../static/data/newYears";
     import Back from '../../components/Back'
     export default {

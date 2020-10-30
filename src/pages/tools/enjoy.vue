@@ -1,7 +1,7 @@
 <template>
   <view class='content' :style="{'background':'url('+bgImg+')','backgroundSize':'cover'}">
       <!--#ifdef MP-WEIXIN || H5-->
-      <Back @click.native='goBack'></Back>
+      <Back @back='goBack' :right="true" @changeType="changeType"></Back>
       <!--#endif-->
 
       <view class="result animated fadeInUp">
@@ -28,12 +28,12 @@
 </template>
 
 <script>
-  import {getRainbow,getApkUrl} from 'serves/main'
+  import {getRainbow,getApkUrl,getDogList} from 'serves/main'
   // import {fetch} from 'serves/serves'
   // import {getEnjoyList} from "../../static/data/enjoy";
   // import {getFriendlyList} from "../../static/data/friendly";
   // import {getSadList} from "../../static/data/sad";
-  import Back from '../../components/Back'
+  import Back from '@components/Back'
     export default {
         name: "enjoy",
         components:{
@@ -46,20 +46,26 @@
                 type:'',
                 api:[
                     {
+                        type:'default',
+                        api:'/api/app/getWords?type=chp',
+                        apiwx:'https://chp.shadiao.app/api.php?from=wyh68l',
+                        title:'甜蜜情话'
+                    },
+                    {
+                        type:'dog',
+                        api:'/api/app/getDogList?type=MY',
+                        apiwx:this.$baseUrl+'/api/app/getDogList?type=MY',
+                        title:'舔狗日记'
+                    },
+                    {
                         type:'friendly',
-                        api:'/pyq?from=wyh68l',
+                        api:'/api/app/getWords?type=pyq',
                         apiwx:'https://pyq.shadiao.app/api.php?from=wyh68l',
                         title:'朋友圈文案'
                     },
                     {
-                        type:'default',
-                        api:'/chp?from=wyh68l',
-                        apiwx:'https://chp.shadiao.app/api.php?from=wyh68l',
-                        title:'彩虹屁'
-                    },
-                    {
                         type:'sad',
-                        api:'/djt?from=wyh68l',
+                        api:'/api/app/getWords?type=du',
                         apiwx:'https://du.shadiao.app/api.php?from=wyh68l',
                         title:'毒鸡汤'
                     },
@@ -165,6 +171,10 @@
             // el.style.backgroundSize = 'cover'
 
             this.randomImg();
+            // 设置应用全屏显示！
+            //#ifdef APP-PLUS
+            plus.navigator.setFullscreen(true);
+            //#endif
         },
         onLoad(option){
             //#ifdef MP-WEIXIN
@@ -200,6 +210,13 @@
                 uni.navigateBack();
                 //#endif
             },
+            changeType(index){
+                this.apiIndex = index;
+                this.type = this.api[index].type;
+                wx.setNavigationBarTitle({
+                    title: this.api[index].title
+                })
+            },
             initConTextObj(){
                 switch (this.type) {
                     case 'default':
@@ -229,9 +246,9 @@
                 //#endif
 
                 getRainbow(url).then(res=>{
-                    // console.log(res);
+                    console.log(res);
                     if(res.errMsg === 'request:ok'){
-                        this.result = res.data;
+                        this.result = typeof res.data == 'object'?res.data.data:res.data;
                         this.isShow = true;
                         setTimeout(()=>{
                             this.isShow = false
@@ -252,107 +269,6 @@
                 //     this.isShow = false
                 // },250)
                 //#endif
-            },
-            sendMes(){
-                console.log('sasa');
-                // wx.requestSubscribeMessage({ //获取下发权限
-                //     tmplIds: ['y2k4X9fDqN9nKEkoZTo1aw_YBgEj5RPuKt8ANYmzSUo'], //此处写在后台获取的模板ID，可以写多个模板ID，看自己的需求
-                //     success: (res) => {
-                //         if (res['y2k4X9fDqN9nKEkoZTo1aw_YBgEj5RPuKt8ANYmzSUo'] == 'accept') { //accept--用户同意 reject--用户拒绝 ban--微信后台封禁,可不管
-                //             // 获取access_token（仅为测试，正常需要在后台获取）
-                //
-                //         } else {
-                //             wx.showModal({
-                //                 title: '温馨提示',
-                //                 content: '您已拒绝授权，将无法在微信中收到简历审核通知！',
-                //                 showCancel: false,
-                //                 success: res => {
-                //                     if (res.confirm) {
-                //                         // 这里可以写自己的逻辑
-                //                     }
-                //                 }
-                //             })
-                //         }
-                //     }
-                // })
-
-                // wx.request({
-                //     url: 'https://api.weixin.qq.com/cgi-bin/token', //获取access_token的地址，微信定义的
-                //     data: {
-                //         grant_type: 'client_credential', //写死的
-                //         appid: 'wxb40b9e8b41b1c907', //小程序的appId(填写自己的)
-                //         secret: 'b38075f7b3b03b4de98fb38aa0277758' //小程序密钥,在小程序后台获取的，登录西奥程序后台->点开发->点开发设置->获取密钥就可以了
-                //     },
-                //     success: (req) => {
-                //         console.log('获取access_token成功', req.data.access_token)
-                //         let _access_token = req.data.access_token;
-                //         wx.login({
-                //             success: res => {
-                //                 if (res.code) { //code五分钟内有效
-                //                     // 调用下发接口前需要得到用户的openid
-                //                     wx.request({
-                //                         url: 'https://api.weixin.qq.com/sns/jscode2session',
-                //                         data: {
-                //                             appid: 'wxb40b9e8b41b1c907',
-                //                             secret: 'b38075f7b3b03b4de98fb38aa0277758',
-                //                             js_code: res.code, //登录时获取的code
-                //                             grant_type: "authorization_code", //授权类型，写死的
-                //                         },
-                //                         success: res => {
-                //                             console.log('获取openid成功', res)
-                //                             let _openid = res.data.openid;
-                //                             // 调用下发接口
-                //                             wx.request({
-                //                                 url: 'https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=' + _access_token,
-                //                                 method: "POST",
-                //                                 data: JSON.stringify({
-                //                                     touser: _openid, //当前用户的openid
-                //                                     template_id: "y2k4X9fDqN9nKEkoZTo1aw_YBgEj5RPuKt8ANYmzSUo", //需要下发的模板ID，如模板不多可让后台直接配置写死，多的话就通过微信获取模板列表接口查询模板
-                //                                     //page: "pages/garden/garden", //点击小程序订阅消息跳转的页面，可携带参数
-                //                                     data: {
-                //                                         "thing1": { //这个key值就是上面提到的关键词，在后台对应的模板详情里可以看到，等后台-->点订阅消息-->我的模板(没有的话先去公共模板库选一个)-->点击详情-->右边详细内容里就是对应的key了
-                //                                             "value": '已通过' //这个值是下发给用户的信息
-                //                                         },
-                //                                         "thing2": {
-                //                                             "value": '您被录用了'
-                //                                         },
-                //                                     }
-                //                                 }),
-                //                                 success: res => {
-                //                                     console.log(res)
-                //                                     wx.showToast({
-                //                                         title: '下发成功',
-                //                                     })
-                //                                     // 这里可以写自己的逻辑
-                //                                 }
-                //                             })
-                //                         }
-                //                     })
-                //                 }
-                //             }
-                //         })
-                //     }
-                // })
-
-                // wx.requestSubscribeMessage({
-                //     tmplIds: ['y2k4X9fDqN9nKEkoZTo1aw_YBgEj5RPuKt8ANYmzSUo'],
-                //     success (res) {
-                //         console.log(res);
-                //     },
-                //     fail(res){
-                //         console.log(res);
-                //     }
-                // })
-                // wx.login({
-                //     success (res) {
-                //         if (res.code) {
-                //             //发起网络请求
-                //             console.log(res.code);
-                //         } else {
-                //             console.log('登录失败！' + res.errMsg)
-                //         }
-                //     }
-                // })
             },
             randomImg(){
                 let that = this;
@@ -419,7 +335,7 @@
                             icon: 'success',
                             duration: 2000
                         })
-                        console.log(e)
+                        // console.log(e)
                     }, (e)=> {
                         this.tips = '诶呀,再试下吧'
                         wx.showToast({
@@ -427,7 +343,7 @@
                             icon: 'none',
                             duration: 2000
                         })
-                        console.log(e)
+                        // console.log(e)
                     })
                 //#endif
             }

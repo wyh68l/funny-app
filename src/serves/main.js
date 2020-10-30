@@ -1,4 +1,7 @@
 import {fetch} from './serves'
+import Vue from 'vue'
+const baseUrl = Vue.prototype.$baseUrl;
+const baseImgUrl = Vue.prototype.$baseImgUrl;
 
 // import {
 //   mainGoodsMock,
@@ -27,7 +30,7 @@ export function getRainbow(url) {
 export function getApkUrl() {
     return fetch({
         //url:'/api/download/url',
-        url:'http://47.97.104.206:3000/download/url',
+        url:baseUrl+'/api/download/url',
         method:'get'
     })
 }
@@ -35,12 +38,61 @@ export function getApkUrl() {
 //获取版本更新
 export function getVersion(data) {
     return fetch({
-        url:'http://47.97.104.206:3000/app/version',
+        url:baseUrl+'/api/app/version',
         method:'get',
         data
     })
 }
 
+//获取功能列表
+export function getToolsList(data) {
+    return fetch({
+        url:baseUrl+'/api/tools/getToolsList',
+        // url:'/api/tools/getToolsList',
+        method:'get',
+        params:data
+    })
+}
+
+//获取关于信息
+export function getAboutInfo(data) {
+    return fetch({
+        // url:baseUrl+'/app/aboutInfo',
+        url:baseUrl+'/api/app/aboutInfo',
+        method:'get',
+        params:data
+    })
+}
+
+//获取图片分类接口
+export function getImgClassify(data) {
+    return fetch({
+        // url:baseUrl+'/v1/wallpaper/category',
+        url:baseUrl+'/api/v1/wallpaper/category',
+        method:'get',
+        params:data
+    })
+}
+
+//获取图片列表接口
+export function getImgList(data) {
+    return fetch({
+        // url:`${baseUrl}/v1/vertical/category/vertical`,
+        url:`${baseUrl}/api/v1/vertical/category/vertical`,
+        method:'get',
+        params:data
+    })
+}
+
+//获取表情包图片搜索接口
+export function searchEmoji(data) {
+    return fetch({
+        // url:`http://www.dbbqb.com/api/search/json`,
+        url:baseUrl+'/bqb/search/json',
+        method:'get',
+        params:data
+    })
+}
 
 /*--------------首页mock模拟的接口2.0----------------*/
 
@@ -49,29 +101,5 @@ export function mainGoods(type,page) {
   Mock.mock(RegExp(`/mock/mainGoods` + ".*"), 'get', mainGoodsMock(type, page))
   return requestMock( {
     url:'/mainGoods'
-  })
-}
-
-//截获首页轮播图数据
-export function mainBanner() {
-  Mock.mock(RegExp(`/mock/mainBanner` + ".*"), 'get', mainBannerMock())
-  return requestMock( {
-    url:'/mainBanner'
-  })
-}
-
-//截获首页分栏
-export function mainReviews() {
-  Mock.mock(RegExp(`/mock/mainReviews` + ".*"), 'get', mainReviewsMock())
-  return requestMock( {
-    url:'/mainReviews'
-  })
-}
-
-//截获首页商品详情数据
-export function mainGoodsInfo(id) {
-  Mock.mock(RegExp(`/mock/GoodsInfo` + ".*"), 'get', goodsInfoMock(id))
-  return requestMock( {
-    url:'/GoodsInfo',
   })
 }

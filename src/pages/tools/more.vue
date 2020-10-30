@@ -55,7 +55,7 @@
 
 <script>
     import Back from '../../components/Back'
-    import {getApkUrl,getVersion} from 'serves/main'
+    import {getApkUrl,getVersion} from '@serves/main.js'
     export default {
         name: "more",
         components:{
