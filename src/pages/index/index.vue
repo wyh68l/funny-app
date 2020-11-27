@@ -18,7 +18,6 @@
         <button @tap="goTo">浸入</button>
       </view>
     </view>
-
   </view>
 </template>
 

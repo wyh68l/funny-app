@@ -50,7 +50,7 @@
             <!--</view>-->
         </view>
 
-
+        <official-account class="gzh"></official-account>
     </view>
 </template>
 
@@ -287,6 +287,12 @@
                 color: #fff;
                 font-size: 32upx;
             }
+        }
+        .gzh{
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
         }
     }
 
