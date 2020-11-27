@@ -71,6 +71,7 @@
             setTimeout(()=>{
                 uni.showToast({//提示
                     title:'长按可以保存图片哦~',
+                    icon:'none'
                 })
             },2000)
             // 设置应用非全屏显示！
