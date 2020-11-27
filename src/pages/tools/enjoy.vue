@@ -64,6 +64,24 @@
                         title:'朋友圈文案'
                     },
                     {
+                        type:'rjcs',
+                        api:'/api/app/getWords?type=rjcs',
+                        apiwx:'https://tools.tyh52.com/djt/api.php?type=renjiancoushu',
+                        title:'人间凑数日记'
+                    },
+                    {
+                        type:'zn',
+                        api:'/api/app/getWords?type=zn',
+                        apiwx:'https://tools.tyh52.com/djt/api.php?type=scumbag',
+                        title:'渣男语录'
+                    },
+                    {
+                        type:'spiritboy',
+                        api:'/api/app/getWords?type=spiritboy',
+                        apiwx:'https://tools.tyh52.com/djt/api.php?type=spiritboy',
+                        title:'精神小伙语录'
+                    },
+                    {
                         type:'sad',
                         api:'/api/app/getWords?type=du',
                         apiwx:'https://du.shadiao.app/api.php?from=wyh68l',

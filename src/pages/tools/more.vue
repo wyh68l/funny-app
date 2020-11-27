@@ -37,6 +37,7 @@
 
 
        <view class="money animated fadeInUp">
+           <div v-html="aboutInfo" style="margin: 0 auto;"></div>
             <!--<view style="text-align: center;margin: 0 auto;">-->
                 <!--&lt;!&ndash;<image :src="imgList[0]" @tap="imgView" :data-src="imgList[0]"></image>&ndash;&gt;-->
                 <!--<image :src="appImgList[0]" @tap="imgView" :data-src="appImgList[0]"></image>-->
@@ -55,7 +56,7 @@
 
 <script>
     import Back from '../../components/Back'
-    import {getApkUrl,getVersion} from '@serves/main.js'
+    import {getApkUrl,getVersion,getAboutInfo} from '@serves/main.js'
     export default {
         name: "more",
         components:{
@@ -71,7 +72,8 @@
                 apkUrl:'https://wws.lanzous.com/ihU7Dh0b3ta',
                 version: 103,
                 updateAppUrl:'',
-                isUpdate:false
+                isUpdate:false,
+                aboutInfo:''
             }
         },
         onLoad(){
@@ -83,9 +85,9 @@
         },
         created(){
             //#ifdef APP-PLUS || H5
-            this.getApkUrl();
+            // this.getAboutInfo();
             //#endif
-
+            this.getAboutInfo();
             //#ifdef APP-PLUS
             //this.getVersion();
             //#endif
@@ -110,6 +112,20 @@
                     if(res.data.status === 200 && result.flag){
                         this.updateAppUrl = result.link;
                         this.isUpdate = true;
+                    }else {
+                        wx.showToast({
+                            title: result.msg,
+                            icon: 'none',
+                            duration: 2000
+                        })
+                    }
+                })
+            },
+            getAboutInfo(){
+                getAboutInfo({type:'MY'}).then(res=>{
+                    let result = res.data.data;
+                    if(res.data.status === 200 && result.flag){
+                        this.aboutInfo = result.aboutInfo;
                     }else {
                         wx.showToast({
                             title: result.msg,

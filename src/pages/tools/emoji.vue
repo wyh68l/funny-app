@@ -1,7 +1,7 @@
 <template>
     <div class="img-home">
         <!-- 分页 -->
-        <view class="selectPage animated fadeInUp">
+        <view class="selectPage animated fadeInUp" :style="{'padding-top':navTop}">
             <view class="left">
                 <view @tap="handleCurrentChange(false)">上一页</view>
                 <text>{{page}}</text>
@@ -13,7 +13,7 @@
             </view>
         </view>
 
-        <ImgFall :imgList="imgs" @imgView="imgView"></ImgFall>
+        <ImgFall :imgList="imgs" @imgView="imgView" :style="{'margin-top':navTop}"></ImgFall>
         <BackTop @backTop="status = false"></BackTop>
     </div>
 </template>
@@ -46,12 +46,14 @@
                     w: ''
                 },
                 options2: {
-                    size:50
+                    size:50,
                 },
+                navTop:0
             };
         },
         watch: {},
         created() {
+            this.navTop = this.customBar;
             wx.setNavigationBarTitle({
                 title: '表情包搜索'
             })
@@ -199,15 +201,15 @@
         left: 0;
         background-color: rgb(35, 37, 38);
         width: 100%;
-        height: 120upx;
+        height: 70upx;
         padding-bottom: 20upx;
         z-index: 1;
         align-items: center;
         display: flex;
-        justify-content: space-between;
+        justify-content: left;
         .left {
             width: 40%;
-            height: 120upx;
+            height: 70upx;
             align-items: center;
             display: flex;
             justify-content: space-between;
@@ -223,23 +225,24 @@
             }
         }
         .right {
-            width: 40%;
+            width: 35%;
             align-items: center;
             display: flex;
-            justify-content: space-between;
-            line-height: 120upx;
-            height: 120upx;
-            margin-right: 4%;
+            justify-content: space-around;
+            line-height: 70upx;
+            height: 70upx;
+            padding: 0;
+            margin-top: 0;
 
             text {
                 display: block;
-                width: 100upx;
+                width: 75upx;
                 text-align: center;
             }
 
             input {
                 color: #fff;
-                width: 200upx;
+                width: 150upx;
                 text-align: center;
                 border-bottom: 1px solid #fff;
                 font-size: 30upx;

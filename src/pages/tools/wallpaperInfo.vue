@@ -17,7 +17,7 @@
         <!--</div>-->
 
         <ImgFall :imgList="imgs" @imgView="imgView"></ImgFall>
-        <BackTop @backTop="status = false"></BackTop>
+        <BackTop @backTop="status = false" :isShow="isShow"></BackTop>
     </div>
 </template>
 
@@ -51,7 +51,8 @@
                 page:1,
                 status:false,
                 type:true,
-                navTop:0
+                navTop:0,
+                isShow:false
             };
         },
         watch:{
@@ -79,6 +80,14 @@
         },
         onShow(){
             this.navTop = this.customBar;
+        },
+        // 监听页面滚动事件
+        onPageScroll: function (e) {
+            if (e.scrollTop >= 700) {
+                this.isShow = true;
+            } else {
+                this.isShow = false;
+            }
         },
         methods: {
             getInfo(id, order, skip,type) {

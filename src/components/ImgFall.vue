@@ -3,8 +3,8 @@
         <ul class="px-waterfall left" v-for="(el,i) in newWaterfallData" :key="i">
             <li v-for="(item,index) in el" :key="index">
                 <div style="position: relative;"  >
-                    <img lazy-load :src="item.path || item.img" class="bg-img animated bounceIn" alt=""
-                         @tap="imgView(item.path || item.img)" @longpress="downImg(item.path || item.img)"/>
+                    <image lazy-load :src="item.path || item.img" class="bg-img animated bounceIn" alt=""
+                         @tap="imgView(item.path || item.img)" @longpress="downImg(item.path || item.img)" mode="widthFix"/>
                 </div>
             </li>
         </ul>
@@ -121,7 +121,7 @@
         &:nth-child(2n + 2) {
             margin-left: 20upx;
         }
-        img.bg-img {
+        image.bg-img {
             width: 100%;
             border-radius: 8px;
         }
@@ -141,7 +141,7 @@
             z-index: 999;
         }
         li{
-            background: #fff;
+            background: #232526;
             border-radius: 8px;
             margin-bottom: 20upx;
         }

@@ -36,23 +36,24 @@
                         console.log(result);
                         this.toolsList = result.data;
                     }else {
-                        uni.showToast({
-                            title:err.msg,
-                        })
+                        wx.showToast({title:result.data.msg,icon:'none'})
                     }
                 }).catch(err=>{
-                    uni.showToast({
-                            title:err.msg,
-                        })
+                    wx.showToast({title:err.msg,icon:'none'})
                 })
             },
             goTo(item){
-                // console.log(item);
+                console.log(item);
                 let options = {
                     url:item.url,
                     title:item.title
                 }
-                uni.navigateTo({url:`${item.src}?options=${encodeURIComponent(JSON.stringify(options))}`})
+                uni.navigateTo({
+                    url:`${item.src}?options=${encodeURIComponent(JSON.stringify(options))}`,
+                    fail:()=>{
+                        wx.showToast({title:item.err,icon:'none'})
+                    }
+                })
             }
         }
     }

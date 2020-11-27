@@ -11,7 +11,7 @@
                         </picker>
                     </view>
                 </view>
-                <text class="icon2 iconfont iconchange"></text>
+                <text class="icon2 iconfont iconjianchagengxin"></text>
             </view>
         </view>
     </view>
@@ -23,7 +23,7 @@
         data(){
             return {
                 navTop:null,
-                array: ['甜蜜情话','舔狗日记', '朋友圈文案', '毒鸡汤'],
+                array: ['甜蜜情话','舔狗日记','朋友圈文案','人间凑数日记','渣男语录','精神小伙语录','毒鸡汤'],
                 index:0,
             }
         },
@@ -76,11 +76,11 @@
 
                 .uni-input{
                     background:none;
-                    border-bottom:  1px solid #fff;
+                    /*border-bottom:  1px solid #fff;*/
                 }
 
                 .icon2{
-                    margin-left: 15upx;
+                    color: #00d6d5;
                 }
             }
         }

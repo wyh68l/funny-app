@@ -9,7 +9,13 @@
         name: "BackTop.vue",
         data(){
             return {
-                isShow:false
+
+            }
+        },
+        props:{
+            isShow:{
+                default:false,
+                type:Boolean
             }
         },
         created(){
