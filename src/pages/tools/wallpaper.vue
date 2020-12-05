@@ -1,5 +1,6 @@
 <template>
     <div class="page">
+        <ad unit-id="adunit-29dbde4267033f0c" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="white"></ad>
         <div class="app-cont">
             <div class="picmenus">
                 <div

@@ -12,6 +12,7 @@
                 </div>
             </div>
         </div>
+        <ad unit-id="adunit-920bff2d51207ed4" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="white"></ad>
     </div>
 </template>
 

@@ -14,8 +14,9 @@
         </view>
 
         <view :style="{'margin-top':navTop}"></view>
+        <ad unit-id="adunit-ee657571342cc999"></ad>
         <ImgFall :imgList="imgs" @imgView="imgView"></ImgFall>
-        <BackTop @backTop="status = false"></BackTop>
+        <BackTop @backTop="status = false" :isShow = 'isShow'></BackTop>
     </div>
 </template>
 
@@ -49,7 +50,8 @@
                 options2: {
                     size:50,
                 },
-                navTop:0
+                navTop:0,
+                isShow:false
             };
         },
         watch: {},
@@ -72,6 +74,14 @@
         },
         mounted() {
 
+        },
+        // 监听页面滚动事件
+        onPageScroll: function (e) {
+            if (e.scrollTop >= 700) {
+                this.isShow = true;
+            } else {
+                this.isShow = false;
+            }
         },
         methods: {
             compareVal(){

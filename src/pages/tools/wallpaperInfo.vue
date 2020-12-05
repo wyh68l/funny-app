@@ -15,7 +15,7 @@
         <!--<div class="imgs">-->
             <!--<img v-lazy="pic.img" lazy class="pic-li animated bounceIn" v-for="(pic,index) of imgs" :key="index" @tap="imgView"/>-->
         <!--</div>-->
-
+        <ad unit-id="adunit-5c6f8dec68a6146c"></ad>
         <ImgFall :imgList="imgs" @imgView="imgView"></ImgFall>
         <BackTop @backTop="status = false" :isShow = 'isShow'></BackTop>
     </div>

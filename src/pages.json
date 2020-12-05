@@ -50,6 +50,12 @@
 
         }
       },
+      {
+        "path": "pages/tools/emoji",
+        "style": {
+          "navigationStyle":"custom"
+        }
+      },
 //      {
 //        "path": "pages/tools/game",
 //        "style": {
