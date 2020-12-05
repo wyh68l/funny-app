@@ -51,7 +51,7 @@
             <!--</view>-->
         </view>
 
-
+        <official-account class="gzh"></official-account>
     </view>
 </template>
 
@@ -88,8 +88,10 @@
         created(){
             //#ifdef APP-PLUS || H5
             // this.getApkUrl();
-            //#endif
+            // this.getAboutInfo();
 
+            //#endif
+            this.getAboutInfo();
             //#ifdef APP-PLUS
             //this.getVersion();
             //#endif
@@ -134,6 +136,20 @@
                     if(res.data.status === 200 && result.flag){
                         this.updateAppUrl = result.link;
                         this.isUpdate = true;
+                    }else {
+                        wx.showToast({
+                            title: result.msg,
+                            icon: 'none',
+                            duration: 2000
+                        })
+                    }
+                })
+            },
+            getAboutInfo(){
+                getAboutInfo({type:'MY'}).then(res=>{
+                    let result = res.data.data;
+                    if(res.data.status === 200 && result.flag){
+                        this.aboutInfo = result.aboutInfo;
                     }else {
                         wx.showToast({
                             title: result.msg,
@@ -295,6 +311,12 @@
                 color: #fff;
                 font-size: 32upx;
             }
+        }
+        .gzh{
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
         }
     }
 

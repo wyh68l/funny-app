@@ -23,7 +23,7 @@
         data(){
             return {
                 navTop:null,
-                array: ['甜蜜情话','舔狗日记', '朋友圈文案', '毒鸡汤'],
+                array: ['甜蜜情话','舔狗日记','朋友圈文案','人间凑数日记','渣男语录','精神小伙语录','毒鸡汤'],
                 index:0,
             }
         },
@@ -77,9 +77,9 @@
                 .uni-input{
                     background:none;
                 }
-
                 .icon2{
                     color: aqua;
+                    /*border-bottom:  1px solid #fff;*/
                 }
             }
         }

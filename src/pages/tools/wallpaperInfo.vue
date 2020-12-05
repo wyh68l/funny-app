@@ -70,7 +70,8 @@
 
             setTimeout(()=>{
                 uni.showToast({//提示
-                    title:'长按保存图片哦~',
+                    title:'长按可以保存图片哦~',
+                    icon:'none'
                 })
             },2000)
             // 设置应用非全屏显示！
@@ -81,10 +82,11 @@
         onShow(){
             this.navTop = this.customBar;
         },
-        onPageScroll(e){
-            if(e.scrollTop >= 700){
+        // 监听页面滚动事件
+        onPageScroll: function (e) {
+            if (e.scrollTop >= 700) {
                 this.isShow = true;
-            }else {
+            } else {
                 this.isShow = false;
             }
         },

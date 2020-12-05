@@ -50,14 +50,14 @@
 
         }
       },
-      {
-        "path": "pages/tools/game",
-        "style": {
-          "navigationBarTitleText": "",
-          "navigationBarBackgroundColor": "#F9F9F9",
-          "navigationBarTextStyle": "black"
-        }
-      },
+//      {
+//        "path": "pages/tools/game",
+//        "style": {
+//          "navigationBarTitleText": "",
+//          "navigationBarBackgroundColor": "#F9F9F9",
+//          "navigationBarTextStyle": "black"
+//        }
+//      },
       {
         "path": "pages/tools/wallpaper",
         "style": {

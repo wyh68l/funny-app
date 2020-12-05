@@ -36,18 +36,14 @@
                         console.log(result);
                         this.toolsList = result.data;
                     }else {
-                        uni.showToast({
-                            title:err.msg,
-                        })
+                        wx.showToast({title:result.data.msg,icon:'none'})
                     }
                 }).catch(err=>{
-                    uni.showToast({
-                            title:err.msg,
-                        })
+                    wx.showToast({title:err.msg,icon:'none'})
                 })
             },
             goTo(item){
-                // console.log(item);
+                console.log(item);
                 let options = {
                     url:item.url,
                     title:item.title
@@ -64,7 +60,6 @@
                         }
                     }
                 })
-
             }
         }
     }
