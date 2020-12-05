@@ -52,7 +52,19 @@
                     url:item.url,
                     title:item.title
                 }
-                uni.navigateTo({url:`${item.src}?options=${encodeURIComponent(JSON.stringify(options))}`})
+                uni.navigateTo({
+                    url:`${item.src}?options=${encodeURIComponent(JSON.stringify(options))}`,
+                    fail:(err)=>{
+                        if(err){
+                            wx.showToast({
+                                title: item.err,
+                                icon: 'none',
+                                duration: 2000
+                            })
+                        }
+                    }
+                })
+
             }
         }
     }

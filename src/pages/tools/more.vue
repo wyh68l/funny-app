@@ -4,17 +4,18 @@
 
         <!--#ifdef MP-WEIXIN || H5-->
         <view class="tip animated fadeInUp">
-            <image src="../../static/images/logo.png"></image>
+            <image :src="`${baseUrl}/api/download/images?name=logo&type=png`"></image>
             <text>拥有很多，不如有我</text>
         </view>
         <!--#endif-->
 
         <!--#ifdef APP-PLUS-->
         <view class="tip animated fadeInUp" style="margin-top: 50px;">
-            <image src="../../static/images/logo.png"></image>
+            <image :src="`${baseUrl}/api/download/images?name=logo&type=png`"></image>
             <text>拥有很多，不如有我</text>
         </view>
         <!--#endif-->
+
         <view class="about animated fadeInUp">
             <!--#ifdef MP-WEIXIN-->
             <button class="share" open-type="share">转发小程序</button>
@@ -24,8 +25,8 @@
 
             <!--#ifdef APP-PLUS || H5-->
             <text>感谢使用这款有趣的app！</text>
-            <text>同款微信小程序<span style='color: #ff401c;'>'简桔'</span>已上线哦~希望多多关注呦~</text>
-            <text>后续还会不断更新更多有趣的功能</text>
+            <text>微信小程序<span style='color: #ff401c;'>'简桔'</span>已上线哦~希望多多关注呦~</text>
+            <text>已更新部分功能，后续还会不断更新更多有趣的功能</text>
             <!--#endif-->
 
             <text>如果觉得好用的话，可以推广出去呀~</text>
@@ -37,6 +38,7 @@
 
 
        <view class="money animated fadeInUp">
+           <div v-html="aboutInfo" style="margin: 0 auto;"></div>
             <!--<view style="text-align: center;margin: 0 auto;">-->
                 <!--&lt;!&ndash;<image :src="imgList[0]" @tap="imgView" :data-src="imgList[0]"></image>&ndash;&gt;-->
                 <!--<image :src="appImgList[0]" @tap="imgView" :data-src="appImgList[0]"></image>-->
@@ -54,8 +56,8 @@
 </template>
 
 <script>
-    import Back from '../../components/Back'
-    import {getApkUrl,getVersion} from '@serves/main.js'
+    import Back from '@components/Back'
+    import {getApkUrl,getVersion,getAboutInfo} from 'serves/main'
     export default {
         name: "more",
         components:{
@@ -67,11 +69,13 @@
                     "https://ae01.alicdn.com/kf/H4ac62d11328f4e5599b2b36ee80f4b72w.jpg",
                     "https://ae01.alicdn.com/kf/Hf935989e748e428eadde064960b08755a.jpg",
                 ],
-                appImgList:['http://47.97.104.206:3000/download/wechat'],
+                appImgList:[this.$baseUrl+'api/download/wechat'],
                 apkUrl:'https://wws.lanzous.com/ihU7Dh0b3ta',
                 version: 103,
                 updateAppUrl:'',
-                isUpdate:false
+                isUpdate:false,
+                aboutInfo:'',
+                baseUrl:this.$baseUrl
             }
         },
         onLoad(){
@@ -83,11 +87,17 @@
         },
         created(){
             //#ifdef APP-PLUS || H5
-            this.getApkUrl();
+            // this.getApkUrl();
             //#endif
 
             //#ifdef APP-PLUS
             //this.getVersion();
+            //#endif
+            this.getAboutInfo();
+
+            // 设置应用非全屏显示！
+            //#ifdef APP-PLUS
+            plus.navigator.setFullscreen(false);
             //#endif
         },
         methods:{
@@ -100,10 +110,24 @@
                     urls: that.appImgList // 需要预览的图片http链接列表
                 })
             },
+            getAboutInfo(){
+                getAboutInfo({type:'MY'}).then(res=>{
+                    let result = res.data.data;
+                    if(res.data.status === 200 && result.flag){
+                        this.aboutInfo = result.aboutInfo;
+                    }else {
+                        wx.showToast({
+                            title: result.msg,
+                            icon: 'none',
+                            duration: 2000
+                        })
+                    }
+                })
+            },
             getVersion(){
                 let options = {
                     version:this.version,
-                    appName:'version_JJ'
+                    appName:'version_MY'
                 }
                 getVersion(options).then(res =>{
                     let result = res.data.data;

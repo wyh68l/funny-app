@@ -9,18 +9,17 @@
         name: "BackTop.vue",
         data(){
             return {
-                isShow:false
+
+            }
+        },
+        props:{
+            isShow:{
+                default:false,
+                type:Boolean
             }
         },
         created(){
-            let that = this;
-            // window.onscroll = function () {
-            //     if(window.scrollY >= 700){
-            //         that.isShow = true;
-            //     }else {
-            //         that.isShow = false;
-            //     }
-            // }
+
         },
         methods:{
             backTop(){

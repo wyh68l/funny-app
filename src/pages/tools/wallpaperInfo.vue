@@ -17,7 +17,7 @@
         <!--</div>-->
 
         <ImgFall :imgList="imgs" @imgView="imgView"></ImgFall>
-        <BackTop @backTop="status = false"></BackTop>
+        <BackTop @backTop="status = false" :isShow = 'isShow'></BackTop>
     </div>
 </template>
 
@@ -51,7 +51,8 @@
                 page:1,
                 status:false,
                 type:true,
-                navTop:0
+                navTop:0,
+                isShow:false
             };
         },
         watch:{
@@ -69,7 +70,7 @@
 
             setTimeout(()=>{
                 uni.showToast({//提示
-                    title:'长按可以保存图片哦~',
+                    title:'长按保存图片哦~',
                 })
             },2000)
             // 设置应用非全屏显示！
@@ -79,6 +80,13 @@
         },
         onShow(){
             this.navTop = this.customBar;
+        },
+        onPageScroll(e){
+            if(e.scrollTop >= 700){
+                this.isShow = true;
+            }else {
+                this.isShow = false;
+            }
         },
         methods: {
             getInfo(id, order, skip,type) {
