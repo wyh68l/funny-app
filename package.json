@@ -34,7 +34,7 @@
     "@dcloudio/uni-mp-toutiao": "^2.0.0-27920200527001",
     "@dcloudio/uni-mp-weixin": "^2.0.0-27920200527001",
     "@dcloudio/uni-stat": "^2.0.0-27920200527001",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "better-scroll": "^1.15.2",
     "cross-env": "^7.0.2",
     "flyio": "^0.6.2",
