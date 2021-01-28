@@ -24,6 +24,7 @@
           </view>
       </view>
     </view>
+      <BackTop :isShow = 'isShow2'></BackTop>
   </view>
 </template>
 
@@ -31,9 +32,10 @@
     import {fetch} from '@serves/serves.js'
     import {getYearsList} from "../../static/data/newYears";
     import Back from '../../components/Back'
+    import BackTop from '@components/BackTop'
     export default {
         components:{
-            Back
+            BackTop
         },
         name: "newYear",
         data(){
@@ -122,15 +124,31 @@
                 newYearsList:[],
                 newYearsList2:[],
                 newYearPoet:[],
-                poetIndex:0
+                poetIndex:0,
+                isShow2:false,
             }
+        },
+        onShareAppMessage: function () {//分享好友
+
+        },
+        onShareTimeline: function () {//分享朋友圈
+
         },
         onLoad(){
             //#ifdef MP-WEIXIN
             wx.showShareMenu({
-                withShareTicket: true
-            })
+                menus: ['shareAppMessagewx', 'shareTimeline'],
+                withShareTicket:true
+            });
             //#endif
+        },
+        // 监听页面滚动事件
+        onPageScroll: function (e) {
+            if (e.scrollTop >= 700) {
+                this.isShow2 = true;
+            } else {
+                this.isShow2 = false;
+            }
         },
         created(){
           this.init();

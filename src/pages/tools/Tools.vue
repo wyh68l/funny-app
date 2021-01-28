@@ -28,7 +28,21 @@
         },
         methods:{
 
-        }
+        },
+        onShareAppMessage: function () {
+
+        },
+        onShareTimeline: function () {//分享朋友圈
+
+        },
+        onLoad() {
+            //#ifdef MP-WEIXIN
+            wx.showShareMenu({
+                menus: ['shareAppMessagewx', 'shareTimeline'],
+                withShareTicket:true
+            })
+            //#endif
+        },
     }
 </script>
 

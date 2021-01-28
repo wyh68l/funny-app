@@ -36,11 +36,18 @@
                 canIUse: true,
             }
         },
+        onShareAppMessage: function () {
+
+        },
+        onShareTimeline: function () {//分享朋友圈
+
+        },
         onLoad() {
 
             //#ifdef MP-WEIXIN
             wx.showShareMenu({
-                withShareTicket: true
+                menus: ['shareAppMessagewx', 'shareTimeline'],
+                withShareTicket:true
             })
             //判断全局数据是否存在
             // let that = this;
@@ -55,6 +62,7 @@
             //     }
             //#endif
         },
+
         methods: {
             getUserInfo(e) { //会执行两遍（弹框一次，选择按钮后一次）
                 //#ifdef MP-WEIXIN

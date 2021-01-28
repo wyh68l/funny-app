@@ -12,7 +12,7 @@
         </textarea>
         <text class="copy" @tap="copy" v-show="result !== '' && result">复制</text>
           <!--#ifdef MP-WEIXIN-->
-          <button class="share" open-type="share" v-show="result !== '' && result">分享</button>
+          <button class="share" open-type="share" @ShareAppMessage="onShareAppMessage" v-show="result !== '' && result">分享</button>
           <!--#endif-->
       </view>
       <!--<view class="tips animated fadeInUp">-->
@@ -194,11 +194,19 @@
             plus.navigator.setFullscreen(true);
             //#endif
         },
+        onShareTimeline: function () {//分享朋友圈
+
+        },
         onLoad(option){
             //#ifdef MP-WEIXIN
+            console.log(option);
             wx.showShareMenu({
-                withShareTicket: true
+                menus: ['shareAppMessagewx', 'shareTimeline'],
+                withShareTicket:true
             })
+            if(option.result){
+                this.result = option.result;
+            }
             //#endif
             this.api.forEach((item,index)=>{
                 if(option.type === item.type){
@@ -212,6 +220,16 @@
             //this.initConTextObj();使用本地存储的数据
         },
         methods:{
+            /**
+             * 用户点击右上角分享
+             */
+            onShareAppMessage: function () {
+                return {
+                    title: this.api[this.apiIndex].title,
+                    path: `/pages/tools/enjoy?type=${this.api[this.apiIndex].type}&result=${this.result}`,
+                    imageUrl: '',
+                }
+            },
             goBack(){
                 //#ifdef MP-WEIXIN
                 console.log(getCurrentPages());

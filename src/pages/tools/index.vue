@@ -98,13 +98,6 @@
                 ]
             }
         },
-        onLoad() {
-            //#ifdef MP-WEIXIN
-            wx.showShareMenu({
-                withShareTicket: true
-            })
-            //#endif
-        },
     }
 </script>
 <style>

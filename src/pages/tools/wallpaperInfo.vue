@@ -58,7 +58,17 @@
         watch:{
 
         },
+        onShareAppMessage: function () {//分享好友
+
+        },
+        onShareTimeline: function () {//分享朋友圈
+
+        },
         onLoad(options) {
+            wx.showShareMenu({
+                menus: ['shareAppMessagewx', 'shareTimeline'],
+                withShareTicket:true
+            });
             wx.setNavigationBarTitle({
                 title: '壁纸列表'
             })
@@ -124,7 +134,7 @@
                     let that = this;
                     uni.previewImage({
                         current: currentUrl, // 当前显示图片的http链接
-                        urls: this.imgsUrl,
+                        urls: [currentUrl],//this.imgsUrl
                         longPressActions: {
                             itemList: ['保存图片'],
                             success: function(data) {

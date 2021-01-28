@@ -81,9 +81,16 @@
         onLoad(){
             //#ifdef MP-WEIXIN
             wx.showShareMenu({
-                withShareTicket: true
+                menus: ['shareAppMessagewx', 'shareTimeline'],
+                withShareTicket:true
             })
             //#endif
+        },
+        onShareTimeline: function () {//分享朋友圈
+
+        },
+        onShareAppMessage: function () {//分享好友
+
         },
         created(){
             //#ifdef APP-PLUS || H5
